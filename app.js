@@ -554,11 +554,6 @@ function calculateAndShowResults() {
 
   showScreen(resultsScreen);
 
-  // Auto-email results
-  const resultsData = { candidateName, graphI, graphII, graphIII, segI, segII, segIII };
-  if (window.sendResultsEmail) {
-    window.sendResultsEmail(resultsData);
-  }
 }
 
 // --- Results Rendering ---
@@ -677,12 +672,17 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
   // Actions
   html += `
     <div class="results__actions">
-      <button class="btn btn--primary" onclick="window.print()">Print Results</button>
+      <button class="btn btn--primary" id="downloadPdfBtn">Download PDF</button>
       <button class="btn btn--secondary" id="copyResultsBtn">Copy to Clipboard</button>
       <button class="btn btn--ghost" onclick="startOver()">Start Over</button>
     </div>`;
 
   resultsContent.innerHTML = html;
+
+  // Download PDF handler
+  document.getElementById('downloadPdfBtn').addEventListener('click', () => {
+    downloadResultsPdf();
+  });
 
   // Copy to clipboard handler
   document.getElementById('copyResultsBtn').addEventListener('click', () => {
@@ -720,6 +720,28 @@ function copyResultsToClipboard({ graphI, graphII, graphIII, segI, segII, segIII
     showToast('Results copied to clipboard');
   }).catch(() => {
     showToast('Failed to copy — try selecting text manually');
+  });
+}
+
+function downloadResultsPdf() {
+  const el = resultsContent;
+  const actions = el.querySelector('.results__actions');
+  if (actions) actions.style.display = 'none';
+
+  const opt = {
+    margin:      [10, 10, 10, 10],
+    filename:    `DISC_Results_${candidateName.replace(/\s+/g, '_')}.pdf`,
+    image:       { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF:       { unit: 'mm', format: 'a4', orientation: 'portrait' },
+  };
+
+  html2pdf().set(opt).from(el).save().then(() => {
+    if (actions) actions.style.display = '';
+    showToast('PDF downloaded');
+  }).catch(() => {
+    if (actions) actions.style.display = '';
+    showToast('PDF download failed — try Print instead');
   });
 }
 
