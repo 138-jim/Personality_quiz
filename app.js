@@ -1,8 +1,6 @@
 // === DISC Personality Quiz - Application Logic ===
 
 // --- Quiz Data: 28 questions ---
-// Each trait has: text, mostDim (dimension when selected as MOST), leastDim (dimension when selected as LEAST)
-// Dimensions: D, i, S, C, N (N = neutral/not scored in Graph III)
 const QUESTIONS = [
   { // Box 1
     traits: [
@@ -231,10 +229,8 @@ const QUESTIONS = [
 ];
 
 // --- Segment Lookup Tables ---
-// Each function takes a raw score and returns a segment number 1-7.
-
 const SEGMENT_TABLES = {
-  graphI: {  // MOST tallies
+  graphI: {
     D: score => {
       if (score <= 0) return 1;
       if (score <= 2) return 2;
@@ -272,7 +268,7 @@ const SEGMENT_TABLES = {
       return 7;
     },
   },
-  graphII: {  // LEAST tallies (NOTE: higher raw = lower segment)
+  graphII: {
     D: score => {
       if (score <= 2) return 7;
       if (score <= 4) return 6;
@@ -310,7 +306,7 @@ const SEGMENT_TABLES = {
       return 1;
     },
   },
-  graphIII: {  // Difference (MOST - LEAST), can be negative
+  graphIII: {
     D: score => {
       if (score >= 5) return 7;
       if (score >= 1) return 6;
@@ -354,7 +350,6 @@ const SEGMENT_TABLES = {
 // --- App State ---
 let currentQuestion = 0;
 let candidateName = '';
-// answers[i] = { most: traitIndex, least: traitIndex } or null
 const answers = new Array(QUESTIONS.length).fill(null);
 
 // --- DOM References ---
@@ -366,19 +361,22 @@ const nameError = document.getElementById('nameError');
 const beginBtn = document.getElementById('beginBtn');
 const backBtn = document.getElementById('backBtn');
 const nextBtn = document.getElementById('nextBtn');
-const progressLabel = document.getElementById('progressLabel');
+const progressCurrent = document.getElementById('progressCurrent');
+const progressTotal = document.getElementById('progressTotal');
 const progressPct = document.getElementById('progressPct');
 const progressFill = document.getElementById('progressFill');
 const questionNumber = document.getElementById('questionNumber');
 const traitRows = document.getElementById('traitRows');
 const validationMsg = document.getElementById('validationMsg');
 const resultsContent = document.getElementById('resultsContent');
+const resultsName = document.getElementById('resultsName');
 const toast = document.getElementById('toast');
 
 // --- Screen Navigation ---
 function showScreen(screen) {
   [welcomeScreen, quizScreen, resultsScreen].forEach(s => s.classList.remove('active'));
   screen.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // --- Welcome ---
@@ -407,18 +405,17 @@ function renderQuestion() {
   const total = QUESTIONS.length;
   const pct = Math.round((currentQuestion / total) * 100);
 
-  progressLabel.textContent = `Question ${currentQuestion + 1} of ${total}`;
+  progressCurrent.textContent = currentQuestion + 1;
+  progressTotal.textContent = total;
   progressPct.textContent = `${pct}%`;
   progressFill.style.width = `${pct}%`;
   questionNumber.textContent = `Box ${currentQuestion + 1}`;
 
-  // Build trait rows
   let html = '';
   q.traits.forEach((trait, idx) => {
     const mostChecked = answer && answer.most === idx ? 'checked' : '';
     const leastChecked = answer && answer.least === idx ? 'checked' : '';
 
-    // Determine dimming: if another trait is selected as MOST, dim this trait's MOST radio (and vice versa)
     let rowClasses = 'trait-row';
     if (answer) {
       if (answer.least === idx) rowClasses += ' dimmed-most';
@@ -439,14 +436,14 @@ function renderQuestion() {
   traitRows.innerHTML = html;
   validationMsg.textContent = '';
 
-  // Event listeners for radio buttons
   traitRows.querySelectorAll('input[type="radio"]').forEach(radio => {
     radio.addEventListener('change', handleSelection);
   });
 
-  // Navigation button states
   backBtn.style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
-  nextBtn.textContent = currentQuestion === total - 1 ? 'See Results' : 'Next';
+  nextBtn.innerHTML = currentQuestion === total - 1 
+    ? `See Results <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`
+    : `Next <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
 }
 
 function handleSelection() {
@@ -456,23 +453,18 @@ function handleSelection() {
   const most = mostRadio ? parseInt(mostRadio.value) : null;
   const least = leastRadio ? parseInt(leastRadio.value) : null;
 
-  // Check for same trait selected as both
   if (most !== null && least !== null && most === least) {
     validationMsg.textContent = 'You cannot select the same trait for both MOST and LEAST.';
-    // Undo the last change
     this.checked = false;
-    // Re-render to fix state
     renderQuestion();
     return;
   }
 
-  // Save answer
   if (most !== null || least !== null) {
     answers[currentQuestion] = { most, least };
   }
   validationMsg.textContent = '';
 
-  // Update row dimming
   updateDimming(most, least);
 }
 
@@ -504,10 +496,7 @@ nextBtn.addEventListener('click', () => {
   if (currentQuestion < QUESTIONS.length - 1) {
     currentQuestion++;
     renderQuestion();
-    // Scroll to top of quiz
-    quizScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
-    // Calculate and show results
     calculateAndShowResults();
   }
 });
@@ -517,7 +506,6 @@ function calculateAndShowResults() {
   const dims = ['D', 'i', 'S', 'C', 'N'];
   const discDims = ['D', 'i', 'S', 'C'];
 
-  // Tally Graph I (MOST) and Graph II (LEAST)
   const graphI = { D: 0, i: 0, S: 0, C: 0, N: 0 };
   const graphII = { D: 0, i: 0, S: 0, C: 0, N: 0 };
 
@@ -535,11 +523,9 @@ function calculateAndShowResults() {
     }
   }
 
-  // Graph III = Graph I - Graph II (D, i, S, C only)
   const graphIII = {};
   discDims.forEach(d => { graphIII[d] = graphI[d] - graphII[d]; });
 
-  // Segment numbers
   const segI = {};
   const segII = {};
   const segIII = {};
@@ -549,15 +535,11 @@ function calculateAndShowResults() {
     segIII[d] = SEGMENT_TABLES.graphIII[d](graphIII[d]);
   });
 
-  // Render results
   renderResults({ graphI, graphII, graphIII, segI, segII, segIII });
-
   showScreen(resultsScreen);
-
 }
 
 // --- Graph Display Data ---
-// Raw score ranges for each segment (7 at top, 1 at bottom) per dimension
 const GRAPH_RANGES = {
   graphI: {
     D: [{seg:7,label:'11+'},{seg:6,label:'8–10'},{seg:5,label:'6–7'},{seg:4,label:'4–5'},{seg:3,label:'3'},{seg:2,label:'1–2'},{seg:1,label:'0'}],
@@ -628,26 +610,26 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
   const dimLabels = { D: 'Dominance', i: 'Influence', S: 'Steadiness', C: 'Conscientiousness' };
   const dimColors = { D: 'dim-D', i: 'dim-i', S: 'dim-S', C: 'dim-C' };
 
-  // Validate totals
   const g1Total = graphI.D + graphI.i + graphI.S + graphI.C + graphI.N;
   const g2Total = graphII.D + graphII.i + graphII.S + graphII.C + graphII.N;
 
-  let html = `
-    <div class="results__name">${escapeHtml(candidateName)}</div>
-    <div class="results__subtitle">DISC Personality Profile Results</div>`;
+  resultsName.textContent = escapeHtml(candidateName);
 
-  // Validation warning if totals don't add up
+  let html = '';
+
+  // Validation warning
   if (g1Total !== 28 || g2Total !== 28) {
-    html += `<div style="background:#fff3cd;border:1px solid #ffc107;padding:0.75rem;border-radius:var(--radius);margin-bottom:1rem;font-size:0.85rem;">
-      Warning: Graph I total = ${g1Total}, Graph II total = ${g2Total} (expected 28 each)</div>`;
+    html += `<div style="background:#fef3c7;border:1px solid #f59e0b;padding:1rem;border-radius:10px;margin-bottom:2rem;font-size:0.875rem;">
+      <strong>Warning:</strong> Graph I total = ${g1Total}, Graph II total = ${g2Total} (expected 28 each)
+    </div>`;
   }
 
-  // Tally Box (matches paper scoring sheet)
+  // Tally Box
   const symbols = { D: 'Z', i: '■', S: '▲', C: '★', N: 'N' };
   const tallyDims = ['D', 'i', 'S', 'C', 'N'];
   html += `
-    <div class="tally-section">
-      <div class="tally-section__title">Tally Box</div>
+    <div class="results-section">
+      <div class="results-section__title">Tally Box</div>
       <div class="tally-box">
         <div class="tally-box__header">
           <div class="tally-box__col-head">Graph I<br><small>MOST</small></div>
@@ -689,10 +671,10 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
       </div>
     </div>`;
 
-  // Profile Graphs (matching paper scoring sheet)
+  // Profile Graphs
   html += `
-    <div class="tally-section">
-      <div class="tally-section__title">Profile Graphs</div>
+    <div class="results-section">
+      <div class="results-section__title">Profile Graphs</div>
       <div class="pp-graphs-row">
         ${renderGraph('Graph I', 'graphI', graphI, segI)}
         ${renderGraph('Graph II', 'graphII', graphII, segII)}
@@ -702,8 +684,8 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
 
   // Tally Table
   html += `
-    <div class="tally-section">
-      <div class="tally-section__title">Raw Score Tallies</div>
+    <div class="results-section">
+      <div class="results-section__title">Raw Score Tallies</div>
       <table class="tally-table">
         <thead>
           <tr>
@@ -738,8 +720,8 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
 
   // Segment Number Cards
   html += `
-    <div class="tally-section">
-      <div class="tally-section__title">Segment Numbers</div>
+    <div class="results-section">
+      <div class="results-section__title">Segment Numbers</div>
       <div class="segment-grid">
         <div class="segment-card">
           <div class="segment-card__title">Graph I — Most</div>
@@ -769,46 +751,58 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
     </div>`;
 
   // Bar Charts for Graph III
-  const maxAbs = Math.max(
-    ...discDims.map(d => Math.abs(graphIII[d])),
-    1
-  );
-
   html += `
-    <div class="chart-section">
-      <div class="chart-section__title">Graph III — Difference Profile</div>
-      ${discDims.map(d => {
-        const val = graphIII[d];
-        const pctAbs = (Math.abs(val) / 28) * 100;
-        const isPositive = val >= 0;
-        return `
-          <div class="chart-bar">
-            <div class="chart-bar__label ${dimColors[d]}">${d}</div>
-            <div class="chart-bar__track chart-bar__track--bipolar">
-              <div class="chart-bar__fill chart-bar__fill--${d} chart-bar__fill--${isPositive ? 'positive' : 'negative'}"
-                   style="width: ${pctAbs / 2}%"></div>
-            </div>
-            <div class="chart-bar__value">${val > 0 ? '+' : ''}${val}</div>
-          </div>`;
-      }).join('')}
+    <div class="results-section">
+      <div class="results-section__title">Graph III — Difference Profile</div>
+      <div class="chart-section">
+        ${discDims.map(d => {
+          const val = graphIII[d];
+          const pctAbs = (Math.abs(val) / 28) * 100;
+          const isPositive = val >= 0;
+          return `
+            <div class="chart-bar">
+              <div class="chart-bar__label ${dimColors[d]}">${d}</div>
+              <div class="chart-bar__track chart-bar__track--bipolar">
+                <div class="chart-bar__fill chart-bar__fill--${d} chart-bar__fill--${isPositive ? 'positive' : 'negative'}"
+                     style="width: ${pctAbs / 2}%"></div>
+              </div>
+              <div class="chart-bar__value">${val > 0 ? '+' : ''}${val}</div>
+            </div>`;
+        }).join('')}
+      </div>
     </div>`;
 
   // Actions
   html += `
     <div class="results__actions">
-      <button class="btn btn--primary" id="downloadPdfBtn">Download PDF</button>
-      <button class="btn btn--secondary" id="copyResultsBtn">Copy to Clipboard</button>
-      <button class="btn btn--ghost" onclick="startOver()">Start Over</button>
+      <button class="btn btn--primary" id="downloadPdfBtn">
+        <svg class="btn__icon btn__icon--left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        Download PDF
+      </button>
+      <button class="btn btn--secondary" id="copyResultsBtn">
+        <svg class="btn__icon btn__icon--left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        Copy to Clipboard
+      </button>
+      <button class="btn btn--ghost" onclick="startOver()">
+        <svg class="btn__icon btn__icon--left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/>
+          <path d="M3 3v9h9"/>
+        </svg>
+        Start Over
+      </button>
     </div>`;
 
   resultsContent.innerHTML = html;
 
-  // Download PDF handler
   document.getElementById('downloadPdfBtn').addEventListener('click', () => {
     downloadResultsPdf();
   });
 
-  // Copy to clipboard handler
   document.getElementById('copyResultsBtn').addEventListener('click', () => {
     copyResultsToClipboard({ graphI, graphII, graphIII, segI, segII, segIII });
   });
@@ -853,11 +847,11 @@ function downloadResultsPdf() {
   if (actions) actions.style.display = 'none';
 
   const opt = {
-    margin:      [10, 10, 10, 10],
-    filename:    `DISC_Results_${candidateName.replace(/\s+/g, '_')}.pdf`,
-    image:       { type: 'jpeg', quality: 0.98 },
+    margin: [10, 10, 10, 10],
+    filename: `DISC_Results_${candidateName.replace(/\s+/g, '_')}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true },
-    jsPDF:       { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
   };
 
   html2pdf().set(opt).from(el).save().then(() => {
@@ -877,7 +871,6 @@ function showToast(msg) {
 
 // --- Console test function ---
 function runScoringTest() {
-  // Set all MOST = first trait (index 0), all LEAST = second trait (index 1)
   const testAnswers = QUESTIONS.map(() => ({ most: 0, least: 1 }));
 
   const graphI = { D: 0, i: 0, S: 0, C: 0, N: 0 };

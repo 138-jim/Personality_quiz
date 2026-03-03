@@ -3,66 +3,135 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DISC Personality Profile</title>
+  <title>DISC Personality Profile | Bellette</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#" class="navbar__logo">
+        <svg class="navbar__logo-svg" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="24" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="currentColor">bellette</text>
+        </svg>
+      </a>
+      <div class="navbar__tagline">Personality Assessment</div>
+    </div>
+  </nav>
 
-    <header class="header">
-      <div class="header__logo">Personality Profile</div>
-      <h1 class="header__title">DISC Assessment</h1>
-    </header>
-
+  <main class="main">
     <!-- Welcome Screen -->
-    <section id="welcome" class="screen active welcome">
-      <div class="welcome__instructions">
-        <strong>Instructions:</strong> This assessment contains 28 groups of four descriptive words. For each group, select the word that is <strong>MOST</strong> like you and the word that is <strong>LEAST</strong> like you.<br><br>
-        Ask yourself: <em>"With people, I am most/least..."</em><br><br>
-        Work quickly and go with your first instinct. There are no right or wrong answers.
+    <section id="welcome" class="screen active">
+      <div class="hero">
+        <div class="hero__badge">Discover yourself</div>
+        <h1 class="hero__title">DISC Personality<br>Profile Assessment</h1>
+        <p class="hero__subtitle">Unlock insights into your behavioural style and communication preferences in just 5 minutes.</p>
       </div>
-      <input type="text" id="candidateName" class="name-input" placeholder="Enter your full name" autocomplete="name">
-      <div id="nameError" class="name-error"></div>
-      <button id="beginBtn" class="btn btn--primary">Begin Quiz</button>
+
+      <div class="card card--welcome">
+        <div class="instructions">
+          <div class="instructions__header">
+            <span class="instructions__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4M12 8h.01"/>
+              </svg>
+            </span>
+            <span class="instructions__title">How it works</span>
+          </div>
+          <p class="instructions__text">
+            This assessment contains <strong>28 groups</strong> of four descriptive words. For each group, select the word that is <strong class="highlight">MOST</strong> like you and the word that is <strong class="highlight">LEAST</strong> like you.
+          </p>
+          <p class="instructions__text instructions__text--hint">
+            Ask yourself: <em>"With people, I am most/least..."</em>
+          </p>
+          <p class="instructions__text instructions__text--tip">
+            Work quickly and go with your first instinct. There are no right or wrong answers.
+          </p>
+        </div>
+
+        <div class="name-form">
+          <label class="name-form__label" for="candidateName">Let's get started</label>
+          <input type="text" id="candidateName" class="name-form__input" placeholder="Enter your full name" autocomplete="name">
+          <div id="nameError" class="name-form__error"></div>
+          <button id="beginBtn" class="btn btn--primary btn--large">
+            Begin Assessment
+            <svg class="btn__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- Quiz Screen -->
     <section id="quiz" class="screen">
-      <div class="progress">
-        <div class="progress__text">
-          <span id="progressLabel">Question 1 of 28</span>
-          <span id="progressPct">0%</span>
-        </div>
-        <div class="progress__bar">
-          <div id="progressFill" class="progress__fill" style="width:0%"></div>
+      <div class="quiz-header">
+        <div class="progress">
+          <div class="progress__info">
+            <span class="progress__label">Question <span id="progressCurrent">1</span> of <span id="progressTotal">28</span></span>
+            <span class="progress__percent" id="progressPct">0%</span>
+          </div>
+          <div class="progress__bar">
+            <div id="progressFill" class="progress__fill" style="width:0%"></div>
+          </div>
         </div>
       </div>
 
-      <div class="question__number" id="questionNumber">Box 1</div>
-      <div class="question__prompt">Select the word MOST like you and the word LEAST like you.</div>
-
-      <div class="trait-table">
-        <div class="trait-table__header">
-          <span>Trait</span>
-          <span>Most</span>
-          <span>Least</span>
+      <div class="card card--quiz">
+        <div class="question">
+          <div class="question__badge" id="questionNumber">Box 1</div>
+          <h2 class="question__title">Select the word MOST like you and the word LEAST like you</h2>
         </div>
-        <div id="traitRows"></div>
-      </div>
-      <div id="validationMsg" class="validation-msg"></div>
 
-      <div class="quiz-nav">
-        <button id="backBtn" class="btn btn--secondary">Back</button>
-        <button id="nextBtn" class="btn btn--primary">Next</button>
+        <div class="trait-table">
+          <div class="trait-table__header">
+            <span class="trait-table__header-text">Trait</span>
+            <span class="trait-table__header-badge trait-table__header-badge--most">Most</span>
+            <span class="trait-table__header-badge trait-table__header-badge--least">Least</span>
+          </div>
+          <div id="traitRows"></div>
+        </div>
+
+        <div id="validationMsg" class="validation-msg"></div>
+
+        <div class="quiz-nav">
+          <button id="backBtn" class="btn btn--secondary">
+            <svg class="btn__icon btn__icon--left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back
+          </button>
+          <button id="nextBtn" class="btn btn--primary">
+            Next
+            <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- Results Screen -->
     <section id="results" class="screen">
+      <div class="results-hero">
+        <div class="results-hero__badge">Your Results</div>
+        <h1 class="results-hero__name" id="resultsName"></h1>
+        <p class="results-hero__subtitle">DISC Personality Profile</p>
+      </div>
       <div id="resultsContent"></div>
     </section>
+  </main>
 
-  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <p class="footer__text">© 2025 Bellette. All rights reserved.</p>
+    </div>
+  </footer>
 
   <div id="toast" class="toast"></div>
 
