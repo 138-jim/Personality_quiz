@@ -22,7 +22,7 @@
   --gray-900: #212121;
 
   /* Semantic Colors */
-  --bg: var(--white);
+  --bg: var(--bellette-dark);
   --surface: var(--white);
   --surface-alt: var(--gray-50);
   --text: var(--gray-900);
@@ -107,7 +107,7 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  background: var(--bellette-dark);
+  background: var(--bellette-green);
   border-bottom: none;
 }
 
@@ -192,7 +192,7 @@ body {
   text-align: center;
   margin: calc(var(--space-2xl) * -1) calc(var(--space-xl) * -1) var(--space-3xl);
   padding: var(--space-3xl) var(--space-xl);
-  background: var(--bellette-dark);
+  background: var(--bellette-green);
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
@@ -628,7 +628,7 @@ body {
   text-align: center;
   margin: calc(var(--space-2xl) * -1) calc(var(--space-xl) * -1) var(--space-3xl);
   padding: var(--space-3xl) var(--space-xl);
-  background: var(--bellette-dark);
+  background: var(--bellette-green);
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
