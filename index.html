@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DISC Personality Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+
+    <header class="header">
+      <div class="header__logo">Personality Profile</div>
+      <h1 class="header__title">DISC Assessment</h1>
+    </header>
+
+    <!-- Welcome Screen -->
+    <section id="welcome" class="screen active welcome">
+      <div class="welcome__instructions">
+        <strong>Instructions:</strong> This assessment contains 28 groups of four descriptive words. For each group, select the word that is <strong>MOST</strong> like you and the word that is <strong>LEAST</strong> like you.<br><br>
+        Ask yourself: <em>"With people, I am most/least..."</em><br><br>
+        Work quickly and go with your first instinct. There are no right or wrong answers.
+      </div>
+      <input type="text" id="candidateName" class="name-input" placeholder="Enter your full name" autocomplete="name">
+      <div id="nameError" class="name-error"></div>
+      <button id="beginBtn" class="btn btn--primary">Begin Quiz</button>
+    </section>
+
+    <!-- Quiz Screen -->
+    <section id="quiz" class="screen">
+      <div class="progress">
+        <div class="progress__text">
+          <span id="progressLabel">Question 1 of 28</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress__bar">
+          <div id="progressFill" class="progress__fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="question__number" id="questionNumber">Box 1</div>
+      <div class="question__prompt">Select the word MOST like you and the word LEAST like you.</div>
+
+      <div class="trait-table">
+        <div class="trait-table__header">
+          <span>Trait</span>
+          <span>Most</span>
+          <span>Least</span>
+        </div>
+        <div id="traitRows"></div>
+      </div>
+      <div id="validationMsg" class="validation-msg"></div>
+
+      <div class="quiz-nav">
+        <button id="backBtn" class="btn btn--secondary">Back</button>
+        <button id="nextBtn" class="btn btn--primary">Next</button>
+      </div>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="results" class="screen">
+      <div id="resultsContent"></div>
+    </section>
+
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+  <script src="email.js"></script>
+</body>
+</html>
