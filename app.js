@@ -576,6 +576,53 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
       Warning: Graph I total = ${g1Total}, Graph II total = ${g2Total} (expected 28 each)</div>`;
   }
 
+  // Tally Box (matches paper scoring sheet)
+  const symbols = { D: 'Z', i: '■', S: '▲', C: '★', N: 'N' };
+  const tallyDims = ['D', 'i', 'S', 'C', 'N'];
+  html += `
+    <div class="tally-section">
+      <div class="tally-section__title">Tally Box</div>
+      <div class="tally-box">
+        <div class="tally-box__header">
+          <div class="tally-box__col-head">Graph I<br><small>MOST</small></div>
+          <div class="tally-box__op"></div>
+          <div class="tally-box__col-head">Graph II<br><small>LEAST</small></div>
+          <div class="tally-box__op"></div>
+          <div class="tally-box__col-head">Graph III<br><small>DIFFERENCE</small></div>
+        </div>
+        ${tallyDims.map(d => {
+          const isN = d === 'N';
+          const colorClass = isN ? '' : dimColors[d];
+          return `
+          <div class="tally-box__row">
+            <div class="tally-box__dim ${colorClass}">${d}</div>
+            <div class="tally-box__cell">
+              <span class="tally-box__symbol">${symbols[d]}</span>
+              <span class="tally-box__value">${graphI[d]}</span>
+            </div>
+            <div class="tally-box__op">−</div>
+            <div class="tally-box__dim ${colorClass}">${d}</div>
+            <div class="tally-box__cell">
+              <span class="tally-box__symbol">${symbols[d]}</span>
+              <span class="tally-box__value">${graphII[d]}</span>
+            </div>
+            <div class="tally-box__op">=</div>
+            ${isN
+              ? '<div class="tally-box__cell tally-box__cell--no-compute" style="grid-column:span 2"><small>DO NOT<br>COMPUTE</small></div>'
+              : `<div class="tally-box__dim ${colorClass}">${d}</div><div class="tally-box__cell"><span class="tally-box__value">${graphIII[d] > 0 ? '+' : ''}${graphIII[d]}</span></div>`
+            }
+          </div>`;
+        }).join('')}
+        <div class="tally-box__footer">
+          <div>Column total: <strong>${g1Total}</strong></div>
+          <div></div>
+          <div>Column total: <strong>${g2Total}</strong></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>`;
+
   // Tally Table
   html += `
     <div class="tally-section">
