@@ -363,6 +363,166 @@ body {
 .dim-S { color: var(--S-color); font-weight: 700; }
 .dim-C { color: var(--C-color); font-weight: 700; }
 
+/* Profile Graphs */
+.pp-graphs-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.pp-graph {
+  border: 2px solid #333;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.pp-graph__header {
+  background: #2a2a2a;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.pp-graph__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+  table-layout: fixed;
+}
+
+.pp-graph__th {
+  padding: 0.35rem 0.15rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #fff;
+  border-bottom: 2px solid #333;
+}
+
+.pp-graph__th--D { background: var(--D-color); }
+.pp-graph__th--i { background: var(--i-color); }
+.pp-graph__th--S { background: var(--S-color); }
+.pp-graph__th--C { background: var(--C-color); }
+.pp-graph__th--seg { background: #555; font-size: 0.6rem; width: 28px; }
+
+.pp-graph__table tbody tr { border-bottom: 1px solid var(--border); }
+.pp-graph__table tbody tr:nth-child(odd) { background: #f5f2ed; }
+.pp-graph__table tbody tr:nth-child(even) { background: #fff; }
+
+/* Dashed line between segment pairs (after rows 1,2,3,4,5,6 = segments 7,6,5,4,3,2) */
+.pp-graph__table tbody tr:nth-child(1) td,
+.pp-graph__table tbody tr:nth-child(2) td,
+.pp-graph__table tbody tr:nth-child(3) td,
+.pp-graph__table tbody tr:nth-child(4) td,
+.pp-graph__table tbody tr:nth-child(5) td,
+.pp-graph__table tbody tr:nth-child(6) td {
+  border-bottom: 1px dashed #b0aba4;
+}
+
+.graph-cell {
+  text-align: center;
+  padding: 0.3rem 0.1rem;
+  position: relative;
+  vertical-align: middle;
+  height: 32px;
+}
+
+.graph-cell__range {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+}
+
+.graph-cell--active {
+  font-weight: 700;
+}
+
+.graph-cell--active .graph-cell__range { display: none; }
+
+.graph-cell__score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.graph-cell--D .graph-cell__score { background: var(--D-color); }
+.graph-cell--i .graph-cell__score { background: var(--i-color); }
+.graph-cell--S .graph-cell__score { background: var(--S-color); }
+.graph-cell--C .graph-cell__score { background: var(--C-color); }
+
+.graph-seg {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: #eae7e2 !important;
+  width: 28px;
+  border-left: 2px solid #333;
+}
+
+.pp-graph__footer {
+  border-top: 2px solid #333;
+  padding: 0.35rem;
+  background: #eae7e2;
+}
+
+.pp-graph__seg-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  justify-content: center;
+}
+
+.pp-graph__seg-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+.pp-graph__seg-num--D { background: var(--D-color); }
+.pp-graph__seg-num--i { background: var(--i-color); }
+.pp-graph__seg-num--S { background: var(--S-color); }
+.pp-graph__seg-num--C { background: var(--C-color); }
+
+.pp-graph__seg-label {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  margin-left: 0.25rem;
+}
+
+@media (max-width: 600px) {
+  .pp-graphs-row { grid-template-columns: 1fr; }
+  .graph-cell { height: 36px; }
+  .graph-cell__score { width: 30px; height: 30px; font-size: 0.85rem; }
+  .pp-graph__table { font-size: 0.75rem; }
+}
+
+@media print {
+  .pp-graph__th, .graph-cell--active .graph-cell__score, .pp-graph__seg-num {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
 /* Tally Box */
 .tally-box {
   background: var(--surface);

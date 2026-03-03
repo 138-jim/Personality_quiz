@@ -556,6 +556,72 @@ function calculateAndShowResults() {
 
 }
 
+// --- Graph Display Data ---
+// Raw score ranges for each segment (7 at top, 1 at bottom) per dimension
+const GRAPH_RANGES = {
+  graphI: {
+    D: [{seg:7,label:'11+'},{seg:6,label:'8–10'},{seg:5,label:'6–7'},{seg:4,label:'4–5'},{seg:3,label:'3'},{seg:2,label:'1–2'},{seg:1,label:'0'}],
+    i: [{seg:7,label:'12+'},{seg:6,label:'8–11'},{seg:5,label:'6–7'},{seg:4,label:'4–5'},{seg:3,label:'2–3'},{seg:2,label:'1'},{seg:1,label:'0'}],
+    S: [{seg:7,label:'11+'},{seg:6,label:'9–10'},{seg:5,label:'7–8'},{seg:4,label:'5–6'},{seg:3,label:'3–4'},{seg:2,label:'1–2'},{seg:1,label:'0'}],
+    C: [{seg:7,label:'12+'},{seg:6,label:'8–11'},{seg:5,label:'6–7'},{seg:4,label:'4–5'},{seg:3,label:'3'},{seg:2,label:'1–2'},{seg:1,label:'0'}],
+  },
+  graphII: {
+    D: [{seg:7,label:'0–2'},{seg:6,label:'3–4'},{seg:5,label:'5'},{seg:4,label:'6–7'},{seg:3,label:'8'},{seg:2,label:'9'},{seg:1,label:'10+'}],
+    i: [{seg:7,label:'0'},{seg:6,label:'1'},{seg:5,label:'2–3'},{seg:4,label:'4'},{seg:3,label:'5–6'},{seg:2,label:'7–8'},{seg:1,label:'9+'}],
+    S: [{seg:7,label:'0'},{seg:6,label:'1–2'},{seg:5,label:'3'},{seg:4,label:'4'},{seg:3,label:'5–6'},{seg:2,label:'7–9'},{seg:1,label:'10+'}],
+    C: [{seg:7,label:'0–1'},{seg:6,label:'2'},{seg:5,label:'3'},{seg:4,label:'4–5'},{seg:3,label:'6–7'},{seg:2,label:'8–11'},{seg:1,label:'12+'}],
+  },
+  graphIII: {
+    D: [{seg:7,label:'+5 / +28'},{seg:6,label:'+1 / +4'},{seg:5,label:'−1 / 0'},{seg:4,label:'−4 / −2'},{seg:3,label:'−10 / −5'},{seg:2,label:'−14 / −11'},{seg:1,label:'≤ −15'}],
+    i: [{seg:7,label:'+8 / +28'},{seg:6,label:'+5 / +7'},{seg:5,label:'+3 / +4'},{seg:4,label:'+1 / +2'},{seg:3,label:'−1 / 0'},{seg:2,label:'−4 / −2'},{seg:1,label:'≤ −5'}],
+    S: [{seg:7,label:'+12 / +26'},{seg:6,label:'+8 / +11'},{seg:5,label:'+6 / +7'},{seg:4,label:'+3 / +5'},{seg:3,label:'0 / +2'},{seg:2,label:'−2 / −1'},{seg:1,label:'≤ −3'}],
+    C: [{seg:7,label:'+5 / +24'},{seg:6,label:'+4'},{seg:5,label:'0 / +3'},{seg:4,label:'−2 / −1'},{seg:3,label:'−6 / −3'},{seg:2,label:'−9 / −7'},{seg:1,label:'≤ −10'}],
+  },
+};
+
+function renderGraph(title, graphKey, rawScores, segments) {
+  const dims = ['D', 'i', 'S', 'C'];
+  const ranges = GRAPH_RANGES[graphKey];
+
+  let rows = '';
+  for (let seg = 7; seg >= 1; seg--) {
+    rows += `<tr>`;
+    dims.forEach(d => {
+      const range = ranges[d].find(r => r.seg === seg);
+      const isActive = segments[d] === seg;
+      const cellClass = isActive ? 'graph-cell graph-cell--active graph-cell--' + d : 'graph-cell';
+      rows += `<td class="${cellClass}">
+        <span class="graph-cell__range">${range ? range.label : ''}</span>
+        ${isActive ? '<span class="graph-cell__score">' + (rawScores[d] > 0 && graphKey === 'graphIII' ? '+' : '') + rawScores[d] + '</span>' : ''}
+      </td>`;
+    });
+    rows += `<td class="graph-seg">${seg}</td></tr>`;
+  }
+
+  return `
+    <div class="pp-graph">
+      <div class="pp-graph__header">${title}</div>
+      <table class="pp-graph__table">
+        <thead>
+          <tr>
+            <th class="pp-graph__th pp-graph__th--D">D</th>
+            <th class="pp-graph__th pp-graph__th--i">i</th>
+            <th class="pp-graph__th pp-graph__th--S">S</th>
+            <th class="pp-graph__th pp-graph__th--C">C</th>
+            <th class="pp-graph__th pp-graph__th--seg"><small>SEG</small></th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div class="pp-graph__footer">
+        <div class="pp-graph__seg-row">
+          ${dims.map(d => `<span class="pp-graph__seg-num pp-graph__seg-num--${d}">${segments[d]}</span>`).join('')}
+          <span class="pp-graph__seg-label">Segment Numbers</span>
+        </div>
+      </div>
+    </div>`;
+}
+
 // --- Results Rendering ---
 function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
   const discDims = ['D', 'i', 'S', 'C'];
@@ -620,6 +686,17 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
           <div></div>
           <div></div>
         </div>
+      </div>
+    </div>`;
+
+  // Profile Graphs (matching paper scoring sheet)
+  html += `
+    <div class="tally-section">
+      <div class="tally-section__title">Profile Graphs</div>
+      <div class="pp-graphs-row">
+        ${renderGraph('Graph I', 'graphI', graphI, segI)}
+        ${renderGraph('Graph II', 'graphII', graphII, segII)}
+        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
       </div>
     </div>`;
 
