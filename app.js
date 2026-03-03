@@ -607,7 +607,6 @@ function renderGraph(title, graphKey, rawScores, segments) {
 // --- Results Rendering ---
 function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
   const discDims = ['D', 'i', 'S', 'C'];
-  const dimLabels = { D: 'Dominance', i: 'Influence', S: 'Steadiness', C: 'Conscientiousness' };
   const dimColors = { D: 'dim-D', i: 'dim-i', S: 'dim-S', C: 'dim-C' };
 
   const g1Total = graphI.D + graphI.i + graphI.S + graphI.C + graphI.N;
@@ -623,6 +622,17 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
       <strong>Warning:</strong> Graph I total = ${g1Total}, Graph II total = ${g2Total} (expected 28 each)
     </div>`;
   }
+
+  // Profile Graphs
+  html += `
+    <div class="results-section">
+      <div class="results-section__title">Personal Profile System Graphs</div>
+      <div class="pp-graphs-row">
+        ${renderGraph('Graph I', 'graphI', graphI, segI)}
+        ${renderGraph('Graph II', 'graphII', graphII, segII)}
+        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
+      </div>
+    </div>`;
 
   // Tally Box
   const symbols = { D: 'Z', i: '■', S: '▲', C: '★', N: 'N' };
@@ -668,107 +678,6 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
           <div></div>
           <div></div>
         </div>
-      </div>
-    </div>`;
-
-  // Profile Graphs
-  html += `
-    <div class="results-section">
-      <div class="results-section__title">Profile Graphs</div>
-      <div class="pp-graphs-row">
-        ${renderGraph('Graph I', 'graphI', graphI, segI)}
-        ${renderGraph('Graph II', 'graphII', graphII, segII)}
-        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
-      </div>
-    </div>`;
-
-  // Tally Table
-  html += `
-    <div class="results-section">
-      <div class="results-section__title">Raw Score Tallies</div>
-      <table class="tally-table">
-        <thead>
-          <tr>
-            <th></th>
-            ${discDims.map(d => `<th class="${dimColors[d]}">${d}</th>`).join('')}
-            <th>N</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Graph I (Most)</td>
-            ${discDims.map(d => `<td class="${dimColors[d]}">${graphI[d]}</td>`).join('')}
-            <td>${graphI.N}</td>
-            <td><strong>${g1Total}</strong></td>
-          </tr>
-          <tr>
-            <td>Graph II (Least)</td>
-            ${discDims.map(d => `<td class="${dimColors[d]}">${graphII[d]}</td>`).join('')}
-            <td>${graphII.N}</td>
-            <td><strong>${g2Total}</strong></td>
-          </tr>
-          <tr>
-            <td>Graph III (Diff)</td>
-            ${discDims.map(d => `<td class="${dimColors[d]}">${graphIII[d] > 0 ? '+' : ''}${graphIII[d]}</td>`).join('')}
-            <td>—</td>
-            <td>—</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>`;
-
-  // Segment Number Cards
-  html += `
-    <div class="results-section">
-      <div class="results-section__title">Segment Numbers</div>
-      <div class="segment-grid">
-        <div class="segment-card">
-          <div class="segment-card__title">Graph I — Most</div>
-          ${discDims.map(d => `
-            <div class="segment-card__row">
-              <span class="segment-card__label ${dimColors[d]}">${d}</span>
-              <span class="segment-card__value">${segI[d]}</span>
-            </div>`).join('')}
-        </div>
-        <div class="segment-card">
-          <div class="segment-card__title">Graph II — Least</div>
-          ${discDims.map(d => `
-            <div class="segment-card__row">
-              <span class="segment-card__label ${dimColors[d]}">${d}</span>
-              <span class="segment-card__value">${segII[d]}</span>
-            </div>`).join('')}
-        </div>
-        <div class="segment-card">
-          <div class="segment-card__title">Graph III — Diff</div>
-          ${discDims.map(d => `
-            <div class="segment-card__row">
-              <span class="segment-card__label ${dimColors[d]}">${d}</span>
-              <span class="segment-card__value">${segIII[d]}</span>
-            </div>`).join('')}
-        </div>
-      </div>
-    </div>`;
-
-  // Bar Charts for Graph III
-  html += `
-    <div class="results-section">
-      <div class="results-section__title">Graph III — Difference Profile</div>
-      <div class="chart-section">
-        ${discDims.map(d => {
-          const val = graphIII[d];
-          const pctAbs = (Math.abs(val) / 28) * 100;
-          const isPositive = val >= 0;
-          return `
-            <div class="chart-bar">
-              <div class="chart-bar__label ${dimColors[d]}">${d}</div>
-              <div class="chart-bar__track chart-bar__track--bipolar">
-                <div class="chart-bar__fill chart-bar__fill--${d} chart-bar__fill--${isPositive ? 'positive' : 'negative'}"
-                     style="width: ${pctAbs / 2}%"></div>
-              </div>
-              <div class="chart-bar__value">${val > 0 ? '+' : ''}${val}</div>
-            </div>`;
-        }).join('')}
       </div>
     </div>`;
 
@@ -842,24 +751,44 @@ function copyResultsToClipboard({ graphI, graphII, graphIII, segI, segII, segIII
 }
 
 function downloadResultsPdf() {
-  const el = resultsContent;
-  const actions = el.querySelector('.results__actions');
-  if (actions) actions.style.display = 'none';
+  if (typeof html2pdf === 'undefined') {
+    showToast('PDF library not loaded — try refreshing');
+    return;
+  }
+
+  // Build a self-contained container with white background for clean PDF
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:900px;background:#fff;padding:24px;font-family:Reddit Sans,sans-serif;color:#212121;';
+
+  // Name header
+  wrapper.innerHTML = `
+    <div style="text-align:center;margin-bottom:16px;padding:14px;background:#008746;border-radius:10px;">
+      <div style="color:#fff;font-size:20px;font-weight:800;">${escapeHtml(candidateName)}</div>
+      <div style="color:rgba(255,255,255,0.8);font-size:13px;margin-top:4px;">DISC Personality Profile</div>
+    </div>`;
+
+  // Clone results without action buttons
+  const clone = resultsContent.cloneNode(true);
+  const actions = clone.querySelector('.results__actions');
+  if (actions) actions.remove();
+  wrapper.appendChild(clone);
+  document.body.appendChild(wrapper);
 
   const opt = {
-    margin: [10, 10, 10, 10],
+    margin: [8, 8, 8, 8],
     filename: `DISC_Results_${candidateName.replace(/\s+/g, '_')}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
   };
 
-  html2pdf().set(opt).from(el).save().then(() => {
-    if (actions) actions.style.display = '';
+  html2pdf().set(opt).from(wrapper).save().then(() => {
+    document.body.removeChild(wrapper);
     showToast('PDF downloaded');
-  }).catch(() => {
-    if (actions) actions.style.display = '';
-    showToast('PDF download failed — try Print instead');
+  }).catch(err => {
+    console.error('PDF generation error:', err);
+    if (wrapper.parentNode) document.body.removeChild(wrapper);
+    showToast('PDF download failed — try Print (Ctrl+P)');
   });
 }
 

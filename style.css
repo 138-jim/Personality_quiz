@@ -662,8 +662,19 @@ body {
 }
 
 /* === Results Content === */
+#resultsContent {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  margin: 0 auto;
+}
+
 .results-section {
   margin-bottom: var(--space-3xl);
+}
+
+.results-section:last-of-type {
+  margin-bottom: 0;
 }
 
 .results-section__title {
