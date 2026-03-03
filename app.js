@@ -535,7 +535,10 @@ function calculateAndShowResults() {
     segIII[d] = SEGMENT_TABLES.graphIII[d](graphIII[d]);
   });
 
-  renderResults({ graphI, graphII, graphIII, segI, segII, segIII });
+  const patternName = getClassicalPattern(segIII);
+  const pattern = CLASSICAL_PATTERNS[patternName] || null;
+
+  renderResults({ graphI, graphII, graphIII, segI, segII, segIII, patternName, pattern });
   showScreen(resultsScreen);
 }
 
@@ -560,6 +563,324 @@ const GRAPH_RANGES = {
     C: [{seg:7,label:'+5 / +24'},{seg:6,label:'+4'},{seg:5,label:'0 / +3'},{seg:4,label:'−2 / −1'},{seg:3,label:'−6 / −3'},{seg:2,label:'−9 / −7'},{seg:1,label:'≤ −10'}],
   },
 };
+
+// --- Classical Profile Patterns ---
+const CLASSICAL_PATTERNS = {
+  'Achiever': {
+    emotions: 'Industrious and diligent; displays frustration',
+    goal: 'Personal accomplishments, sometimes at the expense of the group\'s goal',
+    judgesBy: 'Ability to achieve concrete results',
+    influencesBy: 'Accountability for own work',
+    valueToOrg: 'Sets and completes key result areas for self',
+    overuses: 'Reliance on self; absorption in the task',
+    underPressure: 'Becomes frustrated and impatient; becomes more of a "do-er" and less of a "delegator"',
+    fears: 'Others with competing or inferior work standards affecting results',
+    increaseEffectiveness: 'Reduction of "either-or" thinking; clarity of task priority; consideration of optional approaches; willingness to compromise short-term for long-range benefits',
+  },
+  'Agent': {
+    emotions: 'Accepts affection; rejects aggression',
+    goal: 'Group acceptance',
+    judgesBy: 'Commitment to tolerate and include everyone',
+    influencesBy: 'Empathy; friendship',
+    valueToOrg: 'Supports, harmonizes, empathizes; focuses on service',
+    overuses: 'Kindness',
+    underPressure: 'Becomes persuasive, using information or key friendships if necessary',
+    fears: 'Dissension; conflict',
+    increaseEffectiveness: 'Strength in realization of who they are and what they can do; firmness and self-assertion; ability to say "no" when appropriate',
+  },
+  'Appraiser': {
+    emotions: 'Is driven to look good',
+    goal: '"Victory" with flair',
+    judgesBy: 'Ability to initiate activities',
+    influencesBy: 'Competitive recognition',
+    valueToOrg: 'Accomplishes goals with the team',
+    overuses: 'Authority; ingenuity',
+    underPressure: 'Becomes restless, critical, impatient',
+    fears: '"Loss" or "failure"; others\' disapproval',
+    increaseEffectiveness: 'Individual follow-through; empathy when showing disapproval; steadier pace',
+  },
+  'Counselor': {
+    emotions: 'Being approachable; showing affection and understanding',
+    goal: 'Friendship; happiness',
+    judgesBy: 'Positive acceptance of others; ability to look for the good in people',
+    influencesBy: 'Personal relationships; open door policy',
+    valueToOrg: 'Remaining stable and predictable; developing a wide range of friendships; listening to others\' feelings',
+    overuses: 'Indirect approach; tolerance',
+    underPressure: 'Becomes overly flexible and intimate; is too trusting without differentiating among people',
+    fears: 'Pressuring people; being accused of causing harm',
+    increaseEffectiveness: 'Attention to realistic deadlines; initiative to complete the task',
+  },
+  'Creative': {
+    emotions: 'Accepts aggression; restrains expression',
+    goal: 'Dominance; unique accomplishments',
+    judgesBy: 'Personal standards; progressive ideas for accomplishing tasks',
+    influencesBy: 'Ability to pace development of systems and innovative approaches',
+    valueToOrg: 'Initiates or designs changes',
+    overuses: 'Bluntness; critical or condescending attitude',
+    underPressure: 'Becomes bored with routine work; sulks when restrained; acts independently',
+    fears: 'Lack of influence; failure to achieve their standards',
+    increaseEffectiveness: 'Warmth; tactful communication; effective team cooperation; recognition of existing sanctions',
+  },
+  'Developer': {
+    emotions: 'Is concerned with meeting personal needs',
+    goal: 'New opportunities',
+    judgesBy: 'Ability to meet the Developer\'s standards',
+    influencesBy: 'Pursuit of solutions for problems; projection of personal sense of power',
+    valueToOrg: 'Avoids "passing the buck"; seeks new or innovative problem-solving methods',
+    overuses: 'Control over people and situations to accomplish own results',
+    underPressure: 'Works alone to complete tasks; is belligerent if individualism is threatened or challenging opportunities disappear',
+    fears: 'Boredom; loss of control',
+    increaseEffectiveness: 'Patience, empathy; participation and collaboration with others; follow-through and attention to quality control',
+  },
+  'Inspirational': {
+    emotions: 'Accepts aggression; downplays need for affection',
+    goal: 'Control of their environment or audience',
+    judgesBy: 'Projection of personal strength, character, and social power',
+    influencesBy: 'Charm, direction, intimidation; use of rewards',
+    valueToOrg: 'Acts as a "people mover"; initiates, demands, compliments, disciplines',
+    overuses: 'Attitude that "the ends justify the means"',
+    underPressure: 'Becomes manipulative, quarrelsome, or belligerent',
+    fears: 'Weak behavior; loss of social status',
+    increaseEffectiveness: 'Genuine sensitivity; willingness to help others succeed in their own personal development',
+  },
+  'Investigator': {
+    emotions: 'Is dispassionate; demonstrates self-discipline',
+    goal: 'Power through formal roles and positions of authority',
+    judgesBy: 'Use of factual information',
+    influencesBy: 'Determination, tenacity',
+    valueToOrg: 'Offers comprehensive follow-through; works determinedly on tasks individually or in a small group',
+    overuses: 'Bluntness; suspicion of others',
+    underPressure: 'Tends to internalize conflict; holds on to grudges',
+    fears: 'Involvement with the masses; responsibility to sell abstract ideas',
+    increaseEffectiveness: 'Flexibility; acceptance of others; personal involvement with others',
+  },
+  'Objective Thinker': {
+    emotions: 'Rejects interpersonal aggression',
+    goal: 'Correctness',
+    judgesBy: 'Ability to think logically',
+    influencesBy: 'Use of facts, data, and logical arguments',
+    valueToOrg: 'Defines and clarifies; obtains, evaluates, and tests information',
+    overuses: 'Analysis',
+    underPressure: 'Becomes worrisome',
+    fears: 'Irrational acts; ridicule',
+    increaseEffectiveness: 'Self-disclosure; public discussion of their insights and opinions',
+  },
+  'Overshift': {
+    emotions: 'Considers all four behavioral styles to be of high importance',
+    goal: 'Varies by situation',
+    judgesBy: 'Varies by situation',
+    influencesBy: 'Varies by situation',
+    valueToOrg: 'Versatility; adaptability',
+    overuses: 'May lack consistent focus',
+    underPressure: 'May appear inconsistent',
+    fears: 'Varies by situation',
+    increaseEffectiveness: 'Review scores for possible errors; if valid, focus on the shape of the profile across all three graphs for interpretation',
+    isSpecial: true,
+  },
+  'Perfectionist': {
+    emotions: 'Displays competence; is restrained and cautious',
+    goal: 'Stability; predictable accomplishments',
+    judgesBy: 'Precise standards',
+    influencesBy: 'Attention to detail; accuracy',
+    valueToOrg: 'Is conscientious; maintains standards; controls quality',
+    overuses: 'Procedures and "fail-safe" controls; overdependence on people, products, and processes that have worked in past',
+    underPressure: 'Becomes tactful and diplomatic',
+    fears: 'Antagonism',
+    increaseEffectiveness: 'Role flexibility; independence and interdependence; belief in self-worth',
+  },
+  'Persuader': {
+    emotions: 'Trusts others; is enthusiastic',
+    goal: 'Authority and prestige; status symbols',
+    judgesBy: 'Ability to verbalize; flexibility',
+    influencesBy: 'Friendly, open manner; verbal adeptness',
+    valueToOrg: 'Sells and closes; delegates responsibility; is poised and confident',
+    overuses: 'Enthusiasm; selling ability; optimism',
+    underPressure: 'Becomes indecisive and is easily persuaded; becomes organized to look good',
+    fears: 'Fixed environment; complex relationships',
+    increaseEffectiveness: 'Challenging assignments; attention to task-directed service and key details; objective data analysis',
+  },
+  'Practitioner': {
+    emotions: 'Wants to keep up with others in effort and technical performance',
+    goal: 'Personal growth',
+    judgesBy: 'Self-discipline; position and promotions',
+    influencesBy: 'Confidence in their ability to master new skills; development of "proper" procedures and actions',
+    valueToOrg: 'Is skilled in technical and people problem-solving; displays proficiency and specialization',
+    overuses: 'Overattention to personal objectives; unrealistic expectations of others',
+    underPressure: 'Becomes restrained; is sensitive to criticism',
+    fears: 'Predictability; no recognition as an "expert"',
+    increaseEffectiveness: 'Genuine collaboration for common benefit; delegation of key tasks to appropriate individuals',
+  },
+  'Promoter': {
+    emotions: 'Is willing to accept others',
+    goal: 'Approval, popularity',
+    judgesBy: 'Verbal skills',
+    influencesBy: 'Praise, opportunities, favors',
+    valueToOrg: 'Relieves tension; promotes projects and people, including self',
+    overuses: 'Praise, optimism',
+    underPressure: 'Becomes careless and sentimental; is disorganized',
+    fears: 'Loss of social acceptance and self-worth',
+    increaseEffectiveness: 'Control of time; objectivity; sense of urgency; emotional control; follow-through on promises, tasks',
+  },
+  'Result-Oriented': {
+    emotions: 'Verbalizes ego strength; displays rugged individualism',
+    goal: 'Dominance and independence',
+    judgesBy: 'Ability to accomplish the task quickly',
+    influencesBy: 'Force of character; diligence',
+    valueToOrg: 'Persistence; doggedness',
+    overuses: 'Impatience; "win-lose" competition',
+    underPressure: 'Becomes critical and fault-finding; resists participating with a team; may overstep boundaries',
+    fears: 'Others will take advantage of them; slowness, especially in task activities; being a pushover',
+    increaseEffectiveness: 'Verbalization of their reasoning; consideration of other views and ideas about goals and problem solutions; genuine concern for others; patience and humility',
+  },
+  'Specialist': {
+    emotions: 'Is calculatingly moderate; accommodates others',
+    goal: 'Maintenance of the status quo; controlled environment',
+    judgesBy: 'Friendship standards; competence',
+    influencesBy: 'Consistent performance; accommodation of others',
+    valueToOrg: 'Plans short term; is predictable, consistent; maintains steady pace',
+    overuses: 'Modesty; low risk-taking; passive resistance to innovation',
+    underPressure: 'Becomes adaptable to those in authority and thinks with the group',
+    fears: 'Change; disorganization',
+    increaseEffectiveness: 'Public discussion of their ideas; self-confidence based on feedback; shortcut methods',
+  },
+  'Tight': {
+    emotions: 'Considers all four behavioral styles to be of equal importance',
+    goal: 'Varies by situation',
+    judgesBy: 'Varies by situation',
+    influencesBy: 'Varies by situation',
+    valueToOrg: 'Balance across all behavioral styles',
+    overuses: 'May lack distinctive approach',
+    underPressure: 'May appear indecisive',
+    fears: 'Varies by situation',
+    increaseEffectiveness: 'Review scores for possible errors; if valid, use one of the other two graphs for interpretation as Graph III represents only the difference between the two halves of responses',
+    isSpecial: true,
+  },
+  'Undershift': {
+    emotions: 'Considers all four behavioral styles to be of equally low importance',
+    goal: 'Varies by situation',
+    judgesBy: 'Varies by situation',
+    influencesBy: 'Varies by situation',
+    valueToOrg: 'May be highly adaptable',
+    overuses: 'May lack consistent focus',
+    underPressure: 'May appear disengaged',
+    fears: 'Varies by situation',
+    increaseEffectiveness: 'Review scores for possible errors; if valid, use one of the other two graphs for interpretation as Graph III represents only the difference between the two halves of responses',
+    isSpecial: true,
+  },
+};
+
+// --- Classical Profile Pattern Lookup ---
+function getClassicalPattern(segIII) {
+  const { D, i: I, S, C } = segIII;
+  const segs = { D, i: I, S, C };
+  const dims = ['D', 'i', 'S', 'C'];
+  const vals = [D, I, S, C];
+  const max = Math.max(...vals);
+  const min = Math.min(...vals);
+  const range = max - min;
+
+  // Special patterns
+  if (min >= 6 && range <= 1) return 'Overshift';
+  if (max <= 2) return 'Undershift';
+  if (range <= 1 && min >= 3 && max <= 5) return 'Tight';
+
+  // Sort dimensions by segment value descending
+  const sorted = dims.slice().sort((a, b) => segs[b] - segs[a]);
+  const [first, second, third, fourth] = sorted;
+  const v1 = segs[first], v2 = segs[second], v3 = segs[third], v4 = segs[fourth];
+
+  // Check for Overshift with wider range
+  if (min >= 5) return 'Overshift';
+  if (max <= 3 && range <= 1) return 'Undershift';
+
+  // Single dominant dimension (clear leader, gap >= 3 from second)
+  if (v1 - v2 >= 3) {
+    switch (first) {
+      case 'D': return 'Result-Oriented';
+      case 'i': return 'Promoter';
+      case 'S': return 'Specialist';
+      case 'C': return 'Objective Thinker';
+    }
+  }
+
+  // Determine high dims (>= 5) and low dims (<= 3)
+  const highDims = dims.filter(d => segs[d] >= 5);
+  const lowDims = dims.filter(d => segs[d] <= 3);
+
+  // Two high dimensions
+  if (highDims.length === 2) {
+    const pair = new Set(highDims);
+    if (pair.has('D') && pair.has('i')) {
+      if (segs.i > segs.D) return 'Persuader';
+      if (segs.D > segs.i) return 'Appraiser';
+      return 'Inspirational';
+    }
+    if (pair.has('D') && pair.has('C')) {
+      if (segs.D >= segs.C + 2) return 'Developer';
+      if (segs.C > segs.D) return 'Investigator';
+      return segs.D >= segs.C ? 'Creative' : 'Achiever';
+    }
+    if (pair.has('D') && pair.has('S')) return 'Practitioner';
+    if (pair.has('i') && pair.has('S')) return segs.i >= segs.S ? 'Counselor' : 'Agent';
+    if (pair.has('i') && pair.has('C')) return 'Appraiser';
+    if (pair.has('S') && pair.has('C')) return 'Perfectionist';
+  }
+
+  // Three high dimensions — find the one low dim
+  if (highDims.length >= 3) {
+    if (min >= 5) return 'Overshift';
+    const lowDim = sorted[3];
+    if (lowDim === 'C') return 'Persuader';
+    if (lowDim === 'S') return 'Inspirational';
+    if (lowDim === 'i') return 'Creative';
+    if (lowDim === 'D') return 'Perfectionist';
+  }
+
+  // One high dimension with close second
+  if (highDims.length === 1) {
+    const h = highDims[0];
+    const secondDim = sorted[1];
+    if (h === 'D') {
+      if (secondDim === 'i') return 'Inspirational';
+      if (secondDim === 'C') return segs.D >= 6 ? 'Developer' : 'Creative';
+      if (secondDim === 'S') return 'Practitioner';
+      return 'Result-Oriented';
+    }
+    if (h === 'i') {
+      if (secondDim === 'D') return 'Persuader';
+      if (secondDim === 'S') return 'Counselor';
+      return 'Promoter';
+    }
+    if (h === 'S') {
+      if (secondDim === 'i') return 'Agent';
+      if (secondDim === 'C') return 'Perfectionist';
+      return 'Specialist';
+    }
+    if (h === 'C') {
+      if (secondDim === 'D') return 'Investigator';
+      if (secondDim === 'S') return 'Perfectionist';
+      return 'Objective Thinker';
+    }
+  }
+
+  // No clearly high dimensions — use top two
+  const pair = new Set([first, second]);
+  if (pair.has('D') && pair.has('i')) return segs.D >= segs.i ? 'Inspirational' : 'Persuader';
+  if (pair.has('D') && pair.has('C')) return segs.D >= segs.C ? 'Creative' : 'Achiever';
+  if (pair.has('D') && pair.has('S')) return 'Practitioner';
+  if (pair.has('i') && pair.has('S')) return segs.i >= segs.S ? 'Counselor' : 'Agent';
+  if (pair.has('i') && pair.has('C')) return 'Appraiser';
+  if (pair.has('S') && pair.has('C')) return 'Perfectionist';
+
+  // Absolute fallback — single highest
+  switch (first) {
+    case 'D': return 'Result-Oriented';
+    case 'i': return 'Promoter';
+    case 'S': return 'Specialist';
+    case 'C': return 'Objective Thinker';
+  }
+  return 'Tight';
+}
 
 function renderGraph(title, graphKey, rawScores, segments) {
   const dims = ['D', 'i', 'S', 'C'];
@@ -605,7 +926,7 @@ function renderGraph(title, graphKey, rawScores, segments) {
 }
 
 // --- Results Rendering ---
-function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
+function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, patternName, pattern }) {
   const discDims = ['D', 'i', 'S', 'C'];
   const dimColors = { D: 'dim-D', i: 'dim-i', S: 'dim-S', C: 'dim-C' };
 
@@ -680,6 +1001,61 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII }) {
         </div>
       </div>
     </div>`;
+
+  // Classical Profile Pattern
+  if (patternName && pattern) {
+    const isSpecial = pattern.isSpecial;
+    html += `
+    <div class="results-section">
+      <div class="results-section__title">Classical Profile Pattern</div>
+      <div class="pattern-card ${isSpecial ? 'pattern-card--special' : ''}">
+        <div class="pattern-card__header">
+          <div class="pattern-card__name">${patternName} Pattern</div>
+          <div class="pattern-card__code">Graph III Segments: D=${segIII.D} i=${segIII.i} S=${segIII.S} C=${segIII.C}</div>
+        </div>
+        <div class="pattern-card__body">
+          <div class="pattern-card__grid">
+            <div class="pattern-card__item">
+              <div class="pattern-card__label">Emotions</div>
+              <div class="pattern-card__value">${pattern.emotions}</div>
+            </div>
+            <div class="pattern-card__item">
+              <div class="pattern-card__label">Goal</div>
+              <div class="pattern-card__value">${pattern.goal}</div>
+            </div>
+            <div class="pattern-card__item">
+              <div class="pattern-card__label">Judges Others By</div>
+              <div class="pattern-card__value">${pattern.judgesBy}</div>
+            </div>
+            <div class="pattern-card__item">
+              <div class="pattern-card__label">Influences Others By</div>
+              <div class="pattern-card__value">${pattern.influencesBy}</div>
+            </div>
+            <div class="pattern-card__item">
+              <div class="pattern-card__label">Value to Organisation</div>
+              <div class="pattern-card__value">${pattern.valueToOrg}</div>
+            </div>
+            <div class="pattern-card__item">
+              <div class="pattern-card__label">Overuses</div>
+              <div class="pattern-card__value">${pattern.overuses}</div>
+            </div>
+            <div class="pattern-card__item">
+              <div class="pattern-card__label">Under Pressure</div>
+              <div class="pattern-card__value">${pattern.underPressure}</div>
+            </div>
+            <div class="pattern-card__item">
+              <div class="pattern-card__label">Fears</div>
+              <div class="pattern-card__value">${pattern.fears}</div>
+            </div>
+            <div class="pattern-card__item pattern-card__item--full">
+              <div class="pattern-card__label">Would Increase Effectiveness With</div>
+              <div class="pattern-card__value">${pattern.increaseEffectiveness}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
 
   // Actions
   html += `

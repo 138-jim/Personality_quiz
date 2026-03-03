@@ -942,6 +942,81 @@ body {
   margin-left: var(--space-xs);
 }
 
+/* === Pattern Card === */
+.pattern-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.pattern-card--special {
+  border-color: var(--gray-400);
+  border-style: dashed;
+}
+
+.pattern-card__header {
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--bellette-green);
+  color: var(--white);
+}
+
+.pattern-card__name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.pattern-card__code {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: var(--space-xs);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.pattern-card__body {
+  padding: var(--space-xl);
+}
+
+.pattern-card__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.pattern-card__item {
+  padding: var(--space-md);
+  background: var(--surface-alt);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--bellette-green);
+}
+
+.pattern-card__item--full {
+  grid-column: 1 / -1;
+}
+
+.pattern-card__label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--bellette-green);
+  margin-bottom: var(--space-xs);
+}
+
+.pattern-card__value {
+  font-size: 0.875rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .pattern-card__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* === Tally Table === */
 .tally-table {
   width: 100%;
@@ -1184,12 +1259,12 @@ body {
     padding: var(--space-md);
   }
   
-  .card, .tally-table, .segment-card, .trait-table, .pp-graph {
+  .card, .tally-table, .segment-card, .trait-table, .pp-graph, .pattern-card {
     box-shadow: none;
     border: 1px solid var(--border);
   }
-  
-  .chart-bar__fill, .pp-graph__th, .graph-cell__score, .pp-graph__seg-num {
+
+  .pattern-card__header, .chart-bar__fill, .pp-graph__th, .graph-cell__score, .pp-graph__seg-num {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
