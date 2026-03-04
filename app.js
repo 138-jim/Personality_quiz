@@ -876,22 +876,10 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
     </div>`;
   }
 
-  // Profile Graphs (page 1 in PDF)
-  html += `
-    <div class="results-section">
-      <div class="results-section__title">Personal Profile System Graphs</div>
-      <div class="pp-graphs-row">
-        ${renderGraph('Graph I', 'graphI', graphI, segI)}
-        ${renderGraph('Graph II', 'graphII', graphII, segII)}
-        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
-      </div>
-    </div>`;
-
-  // Classical Profile Pattern (page 2 in PDF)
+  // Classical Profile Pattern (page 1 in PDF)
   if (patternName && pattern) {
     const isSpecial = pattern.isSpecial;
     html += `
-    <div class="pdf-page-break"></div>
     <div class="results-section">
       <div class="results-section__title">Classical Profile Pattern</div>
       <div class="pattern-card ${isSpecial ? 'pattern-card--special' : ''}">
@@ -943,6 +931,18 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
       </div>
     </div>`;
   }
+
+  // Profile Graphs (page 2 in PDF)
+  html += `
+    <div class="pdf-page-break"></div>
+    <div class="results-section">
+      <div class="results-section__title">Personal Profile System Graphs</div>
+      <div class="pp-graphs-row">
+        ${renderGraph('Graph I', 'graphI', graphI, segI)}
+        ${renderGraph('Graph II', 'graphII', graphII, segII)}
+        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
+      </div>
+    </div>`;
 
   // Tally Box
   const symbols = { D: 'Z', i: '■', S: '▲', C: '★', N: 'N' };
