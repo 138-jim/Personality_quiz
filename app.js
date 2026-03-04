@@ -876,6 +876,26 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
     </div>`;
   }
 
+  // Explainer blurb with per-graph pattern results
+  const patternI = getClassicalPattern(segI);
+  const patternII = getClassicalPattern(segII);
+  const patternIII = getClassicalPattern(segIII);
+  html += `
+    <div class="results-section results-explainer">
+      <p>The way these work is to give back results, as graphs, in three areas:</p>
+      <ol>
+        <li>The approach you take at work</li>
+        <li>The approach you take in your personal life</li>
+        <li>How you see yourself (your self-perception)</li>
+      </ol>
+      <p>Your results came back as:</p>
+      <ol>
+        <li><strong>${patternI}</strong></li>
+        <li><strong>${patternII}</strong></li>
+        <li><strong>${patternIII}</strong></li>
+      </ol>
+    </div>`;
+
   // Classical Profile Pattern (page 1 in PDF)
   if (patternName && pattern) {
     const isSpecial = pattern.isSpecial;

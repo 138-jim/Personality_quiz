@@ -942,6 +942,26 @@ body {
   margin-left: var(--space-xs);
 }
 
+/* === Results Explainer === */
+.results-explainer {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--gray-700);
+}
+
+.results-explainer p {
+  margin: 0 0 0.5rem 0;
+}
+
+.results-explainer ol {
+  margin: 0 0 0.75rem 1.5rem;
+  padding: 0;
+}
+
+.results-explainer li {
+  margin-bottom: 0.25rem;
+}
+
 /* === Pattern Card === */
 .pattern-card {
   background: var(--surface);
@@ -1262,65 +1282,83 @@ body {
   display: none; /* hidden on screen */
 }
 
-/* Pattern card styling for PDF page 2 — sized to fill the page */
+/* Pattern card and explainer styling for PDF — sized to fill page 1 */
 .pdf-render .pdf-page-break {
   display: block;
 }
 
+.pdf-render .results-explainer {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  margin-bottom: 0.5rem;
+}
+
+.pdf-render .results-explainer p {
+  margin: 0 0 0.25rem 0;
+}
+
+.pdf-render .results-explainer ol {
+  margin: 0 0 0.35rem 1.2rem;
+}
+
+.pdf-render .results-explainer li {
+  margin-bottom: 0.1rem;
+}
+
 .pdf-render .pattern-card {
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .pdf-render .pattern-card__header {
-  padding: 1rem 1.75rem;
+  padding: 0.7rem 1.25rem;
 }
 
 .pdf-render .pattern-card__name {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .pdf-render .pattern-card__code {
-  font-size: 0.75rem;
-  margin-top: 4px;
+  font-size: 0.65rem;
+  margin-top: 2px;
 }
 
 .pdf-render .pattern-card__blurb {
-  padding: 0.9rem 1.75rem;
-  font-size: 0.88rem;
-  line-height: 1.7;
-}
-
-.pdf-render .pattern-card__blurb p {
-  margin: 0 0 0.7rem 0;
-}
-
-.pdf-render .pattern-card__body {
-  padding: 0.9rem 1.75rem;
-}
-
-.pdf-render .pattern-card__grid {
-  gap: 0.8rem;
-}
-
-.pdf-render .pattern-card__item {
-  padding: 0.55rem 0.85rem;
-  border-left-width: 3px;
-  border-radius: 6px;
-}
-
-.pdf-render .pattern-card__label {
-  font-size: 0.65rem;
-  margin-bottom: 2px;
-}
-
-.pdf-render .pattern-card__value {
-  font-size: 0.82rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.75rem;
   line-height: 1.5;
 }
 
+.pdf-render .pattern-card__blurb p {
+  margin: 0 0 0.4rem 0;
+}
+
+.pdf-render .pattern-card__body {
+  padding: 0.6rem 1.25rem;
+}
+
+.pdf-render .pattern-card__grid {
+  gap: 0.5rem;
+}
+
+.pdf-render .pattern-card__item {
+  padding: 0.35rem 0.6rem;
+  border-left-width: 2px;
+  border-radius: 4px;
+}
+
+.pdf-render .pattern-card__label {
+  font-size: 0.58rem;
+  margin-bottom: 1px;
+}
+
+.pdf-render .pattern-card__value {
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
 .pdf-render .results-section__title {
-  font-size: 1.2rem;
-  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
 }
 
 .pdf-render .results-section {
