@@ -1134,13 +1134,13 @@ function downloadResultsPdf() {
 
   // Build a self-contained container with white background for clean PDF
   const wrapper = document.createElement('div');
-  wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:900px;background:#fff;padding:24px;font-family:Reddit Sans,sans-serif;color:#212121;';
+  wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:900px;background:#fff;padding:24px;font-family:Reddit Sans,sans-serif;color:#00280A;';
 
-  // Name header
+  // Name header — bellette Bold bg, Brilliance text
   wrapper.innerHTML = `
     <div style="text-align:center;margin-bottom:16px;padding:14px;background:#008746;border-radius:10px;">
-      <div style="color:#fff;font-size:20px;font-weight:800;">${escapeHtml(candidateName)}</div>
-      <div style="color:rgba(255,255,255,0.8);font-size:13px;margin-top:4px;">DISC Personality Profile</div>
+      <div style="color:#FAFFC8;font-size:20px;font-weight:300;">${escapeHtml(candidateName)}</div>
+      <div style="color:rgba(250,255,200,0.8);font-size:13px;margin-top:4px;">DISC Personality Profile.</div>
     </div>`;
 
   // Clone results without action buttons

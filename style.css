@@ -1,12 +1,12 @@
 /* === Bellette Style - DISC Personality Quiz === */
 
 :root {
-  /* Bellette Brand Colors */
-  --bellette-dark: #00280A;
-  --bellette-green: #008746;
-  --bellette-green-light: #00A85A;
-  --bellette-lime: #92D400;
-  --bellette-cream: #FAFFC8;
+  /* Bellette Brand Palette (Brand Guidelines 2025) */
+  --bellette-brazen: #00280A;     /* Dark green — substitute for black */
+  --bellette-bold: #008746;       /* Mid green */
+  --bellette-bold-hover: #00A85A; /* Hover state */
+  --bellette-bright: #92D400;     /* Lime — NOT for backgrounds, only type/logo/symbol */
+  --bellette-brilliance: #FAFFC8; /* Cream — substitute for white */
 
   /* Neutral Palette */
   --white: #FFFFFF;
@@ -22,20 +22,20 @@
   --gray-900: #212121;
 
   /* Semantic Colors */
-  --bg: var(--bellette-dark);
+  --bg: var(--bellette-brilliance);
   --surface: var(--white);
   --surface-alt: var(--gray-50);
-  --text: var(--gray-900);
+  --text: var(--bellette-brazen);
   --text-secondary: var(--gray-600);
   --text-muted: var(--gray-500);
   --border: var(--gray-200);
   --border-light: var(--gray-100);
 
   /* Accent Colors */
-  --primary: var(--bellette-green);
-  --primary-hover: var(--bellette-green-light);
-  --primary-active: var(--bellette-dark);
-  --accent: var(--bellette-lime);
+  --primary: var(--bellette-bold);
+  --primary-hover: var(--bellette-bold-hover);
+  --primary-active: var(--bellette-brazen);
+  --accent: var(--bellette-bright);
   
   /* DISC Colors - Modern, muted palette */
   --D-color: #C45D3E;
@@ -107,7 +107,7 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  background: var(--bellette-green);
+  background: var(--bellette-brazen);
   border-bottom: none;
 }
 
@@ -124,7 +124,7 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  color: var(--bellette-lime);
+  color: var(--bellette-bright);
   text-decoration: none;
   transition: opacity var(--transition-fast);
 }
@@ -142,16 +142,16 @@ body {
 .navbar__tagline {
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--bellette-cream);
+  color: var(--bellette-brilliance);
   letter-spacing: 0.02em;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .navbar__dog {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--bellette-lime);
+  background: var(--bellette-bright);
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -192,7 +192,7 @@ body {
   text-align: center;
   margin: calc(var(--space-2xl) * -1) calc(var(--space-xl) * -1) var(--space-3xl);
   padding: var(--space-3xl) var(--space-xl);
-  background: var(--bellette-green);
+  background: var(--bellette-bold);
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
@@ -201,8 +201,8 @@ body {
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-xs) var(--space-md);
-  background: var(--bellette-lime);
-  color: var(--bellette-dark);
+  background: var(--bellette-bright);
+  color: var(--bellette-brazen);
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -213,16 +213,16 @@ body {
 
 .hero__title {
   font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
+  font-weight: 300;
   line-height: 1.1;
-  color: var(--bellette-cream);
+  color: var(--bellette-brilliance);
   margin-bottom: var(--space-md);
   letter-spacing: -0.02em;
 }
 
 .hero__subtitle {
   font-size: 1.125rem;
-  color: var(--bellette-cream);
+  color: var(--bellette-brilliance);
   opacity: 0.8;
   max-width: 480px;
   margin: 0 auto;
@@ -291,7 +291,7 @@ body {
 }
 
 .instructions__text .highlight {
-  color: var(--bellette-green);
+  color: var(--bellette-bold);
   font-weight: 600;
 }
 
@@ -376,7 +376,7 @@ body {
 
 .btn--primary {
   background: var(--primary);
-  color: var(--white);
+  color: var(--bellette-brilliance);
 }
 
 .btn--primary:hover {
@@ -628,7 +628,7 @@ body {
   text-align: center;
   margin: calc(var(--space-2xl) * -1) calc(var(--space-xl) * -1) var(--space-3xl);
   padding: var(--space-3xl) var(--space-xl);
-  background: var(--bellette-green);
+  background: var(--bellette-bold);
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
@@ -637,8 +637,8 @@ body {
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-xs) var(--space-md);
-  background: var(--bellette-lime);
-  color: var(--bellette-dark);
+  background: var(--bellette-bright);
+  color: var(--bellette-brazen);
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -649,15 +649,15 @@ body {
 
 .results-hero__name {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 800;
-  color: var(--bellette-cream);
+  font-weight: 300;
+  color: var(--bellette-brilliance);
   margin-bottom: var(--space-xs);
   letter-spacing: -0.02em;
 }
 
 .results-hero__subtitle {
   font-size: 1.125rem;
-  color: var(--bellette-cream);
+  color: var(--bellette-brilliance);
   opacity: 0.8;
 }
 
@@ -706,8 +706,8 @@ body {
 .tally-box__header {
   display: grid;
   grid-template-columns: 1fr 32px 1fr 32px 1fr;
-  background: var(--gray-800);
-  color: var(--white);
+  background: var(--bellette-brazen);
+  color: var(--bellette-brilliance);
   text-align: center;
   font-size: 0.6875rem;
   font-weight: 700;
@@ -793,7 +793,7 @@ body {
 .tally-box__footer {
   display: grid;
   grid-template-columns: 1fr 32px 1fr 32px 1fr;
-  border-top: 2px solid var(--text);
+  border-top: 2px solid var(--bellette-brazen);
   padding: var(--space-sm) 0;
   font-size: 0.75rem;
   text-align: center;
@@ -808,15 +808,15 @@ body {
 }
 
 .pp-graph {
-  border: 2px solid var(--gray-800);
+  border: 2px solid var(--bellette-brazen);
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--surface);
 }
 
 .pp-graph__header {
-  background: var(--gray-800);
-  color: var(--white);
+  background: var(--bellette-brazen);
+  color: var(--bellette-brilliance);
   text-align: center;
   font-weight: 700;
   font-size: 0.75rem;
@@ -838,7 +838,7 @@ body {
   font-weight: 700;
   font-size: 0.75rem;
   color: var(--white);
-  border-bottom: 2px solid var(--gray-800);
+  border-bottom: 2px solid var(--bellette-brazen);
 }
 
 .pp-graph__th--D { background: var(--D-color); }
@@ -900,11 +900,11 @@ body {
   color: var(--text-secondary);
   background: var(--border) !important;
   width: 28px;
-  border-left: 2px solid var(--gray-800);
+  border-left: 2px solid var(--bellette-brazen);
 }
 
 .pp-graph__footer {
-  border-top: 2px solid var(--gray-800);
+  border-top: 2px solid var(--bellette-brazen);
   padding: var(--space-xs);
   background: var(--border);
 }
@@ -957,8 +957,8 @@ body {
 
 .pattern-card__header {
   padding: var(--space-lg) var(--space-xl);
-  background: var(--bellette-green);
-  color: var(--white);
+  background: var(--bellette-bold);
+  color: var(--bellette-brilliance);
 }
 
 .pattern-card__name {
@@ -989,7 +989,7 @@ body {
   padding: var(--space-md);
   background: var(--surface-alt);
   border-radius: var(--radius-md);
-  border-left: 3px solid var(--bellette-green);
+  border-left: 3px solid var(--bellette-bold);
 }
 
 .pattern-card__item--full {
@@ -1001,7 +1001,7 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--bellette-green);
+  color: var(--bellette-bold);
   margin-bottom: var(--space-xs);
 }
 
@@ -1216,7 +1216,7 @@ body {
 
 /* === Footer === */
 .footer {
-  background: var(--bellette-dark);
+  background: var(--bellette-brazen);
   padding: var(--space-xl) 0;
   margin-top: auto;
 }
@@ -1230,14 +1230,15 @@ body {
 
 .footer__text {
   font-size: 0.875rem;
-  color: var(--bellette-cream);
+  color: var(--bellette-brilliance);
   opacity: 0.5;
 }
 
 .footer__logo {
   height: 24px;
   margin-bottom: var(--space-sm);
-  opacity: 0.6;
+  filter: brightness(0) invert(82%) sepia(60%) saturate(500%) hue-rotate(35deg);
+  opacity: 0.8;
 }
 
 /* === Print Styles === */
@@ -1264,7 +1265,9 @@ body {
     border: 1px solid var(--border);
   }
 
-  .pattern-card__header, .chart-bar__fill, .pp-graph__th, .graph-cell__score, .pp-graph__seg-num {
+  .pattern-card__header, .chart-bar__fill, .pp-graph__th, .graph-cell__score,
+  .pp-graph__seg-num, .pp-graph__header, .tally-box__header, .results-hero,
+  .hero, .btn--primary {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
