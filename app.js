@@ -876,10 +876,22 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
     </div>`;
   }
 
-  // Classical Profile Pattern (shown first, before graphs)
+  // Profile Graphs (page 1 in PDF)
+  html += `
+    <div class="results-section">
+      <div class="results-section__title">Personal Profile System Graphs</div>
+      <div class="pp-graphs-row">
+        ${renderGraph('Graph I', 'graphI', graphI, segI)}
+        ${renderGraph('Graph II', 'graphII', graphII, segII)}
+        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
+      </div>
+    </div>`;
+
+  // Classical Profile Pattern (page 2 in PDF)
   if (patternName && pattern) {
     const isSpecial = pattern.isSpecial;
     html += `
+    <div class="pdf-page-break"></div>
     <div class="results-section">
       <div class="results-section__title">Classical Profile Pattern</div>
       <div class="pattern-card ${isSpecial ? 'pattern-card--special' : ''}">
@@ -931,17 +943,6 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
       </div>
     </div>`;
   }
-
-  // Profile Graphs
-  html += `
-    <div class="results-section">
-      <div class="results-section__title">Personal Profile System Graphs</div>
-      <div class="pp-graphs-row">
-        ${renderGraph('Graph I', 'graphI', graphI, segI)}
-        ${renderGraph('Graph II', 'graphII', graphII, segII)}
-        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
-      </div>
-    </div>`;
 
   // Tally Box
   const symbols = { D: 'Z', i: '■', S: '▲', C: '★', N: 'N' };
@@ -1082,6 +1083,9 @@ function downloadResultsPdf() {
     .find(s => s.querySelector('.tally-box'));
   if (tallySection) tallySection.style.display = 'none';
 
+  // Add compact class to shrink pattern card for PDF page 2
+  resultsContent.classList.add('pdf-render');
+
   // Scroll to top, wait for fonts + scroll to settle, then capture
   window.scrollTo(0, 0);
 
@@ -1103,18 +1107,21 @@ function downloadResultsPdf() {
         windowHeight: resultsContent.scrollHeight + 200,
       },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { before: '.pdf-page-break' },
     };
 
     html2pdf().set(opt).from(resultsContent).save().then(() => {
       nameHeader.remove();
       if (actionsEl) actionsEl.style.display = '';
       if (tallySection) tallySection.style.display = '';
+      resultsContent.classList.remove('pdf-render');
       showToast('PDF downloaded');
     }).catch(err => {
       console.error('PDF generation error:', err);
       nameHeader.remove();
       if (actionsEl) actionsEl.style.display = '';
       if (tallySection) tallySection.style.display = '';
+      resultsContent.classList.remove('pdf-render');
       showToast('PDF download failed — try Print (Ctrl+P)');
     });
   });

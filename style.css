@@ -1257,6 +1257,76 @@ body {
   opacity: 0.8;
 }
 
+/* === PDF Page Break === */
+.pdf-page-break {
+  display: none; /* hidden on screen */
+}
+
+/* Compact pattern card when rendering to PDF so it fits on one page */
+.pdf-render .pdf-page-break {
+  display: block;
+}
+
+.pdf-render .pattern-card {
+  border-radius: 8px;
+}
+
+.pdf-render .pattern-card__header {
+  padding: 0.5rem 1rem;
+}
+
+.pdf-render .pattern-card__name {
+  font-size: 1.1rem;
+}
+
+.pdf-render .pattern-card__code {
+  font-size: 0.65rem;
+  margin-top: 2px;
+}
+
+.pdf-render .pattern-card__blurb {
+  padding: 0.5rem 1rem;
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+
+.pdf-render .pattern-card__blurb p {
+  margin: 0 0 0.35rem 0;
+}
+
+.pdf-render .pattern-card__body {
+  padding: 0.5rem 1rem;
+}
+
+.pdf-render .pattern-card__grid {
+  gap: 0.4rem;
+}
+
+.pdf-render .pattern-card__item {
+  padding: 0.3rem 0.5rem;
+  border-left-width: 2px;
+  border-radius: 4px;
+}
+
+.pdf-render .pattern-card__label {
+  font-size: 0.55rem;
+  margin-bottom: 1px;
+}
+
+.pdf-render .pattern-card__value {
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.pdf-render .results-section__title {
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.pdf-render .results-section {
+  margin-bottom: 1rem;
+}
+
 /* === Print Styles === */
 @media print {
   body {
