@@ -1144,15 +1144,26 @@ function downloadResultsPdf() {
   const actionsEl = resultsContent.querySelector('.results__actions');
   if (actionsEl) actionsEl.style.display = 'none';
 
-  // Wait for fonts then generate PDF
-  document.fonts.ready.then(() => {
-    window.scrollTo(0, 0);
+  // Scroll to top, wait for fonts + scroll to settle, then capture
+  window.scrollTo(0, 0);
 
+  document.fonts.ready.then(() => {
+    // Wait 300ms for scroll to fully repaint before html2canvas clones the document
+    return new Promise(resolve => setTimeout(resolve, 300));
+  }).then(() => {
     const opt = {
       margin: [8, 8, 8, 8],
       filename: `DISC_Results_${candidateName.replace(/\s+/g, '_')}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        scrollY: 0,
+        scrollX: 0,
+        windowHeight: resultsContent.scrollHeight + 200,
+      },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     };
 
