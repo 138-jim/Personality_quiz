@@ -975,6 +975,22 @@ body {
   letter-spacing: 0.02em;
 }
 
+.pattern-card__blurb {
+  padding: var(--space-lg) var(--space-xl);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+.pattern-card__blurb p {
+  margin: 0 0 0.75rem 0;
+}
+
+.pattern-card__blurb p:last-child {
+  margin-bottom: 0;
+}
+
 .pattern-card__body {
   padding: var(--space-xl);
 }

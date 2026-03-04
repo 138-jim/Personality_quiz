@@ -567,6 +567,7 @@ const GRAPH_RANGES = {
 // --- Classical Profile Patterns ---
 const CLASSICAL_PATTERNS = {
   'Achiever': {
+    blurb: 'The motivation of Achievers is largely internal and flows from deeply felt personal goals. Their commitment to their own goals precludes an automatic acceptance of the group\'s goals. Achievers need to see how they can blend their personal goals with the organisation\'s goals. By retaining control over the direction of their lives, Achievers develop a strong sense of accountability.\n\nAchievers demonstrate a keen interest in their work and an intense, continual pursuit of accomplishment. They have a high opinion of their work and expect others to rely on themselves for results. Instead, they take on the work themselves to ensure that things are done to their satisfaction. An Achiever should communicate more with others to expand their thinking beyond either "I have to do it myself" or "I want all the credit." They may need assistance to find new approaches for achieving their desired results. Achievers function at peak efficiency and they expect recognition equal to their contribution.',
     emotions: 'Industrious and diligent; displays frustration',
     goal: 'Personal accomplishments, sometimes at the expense of the group\'s goal',
     judgesBy: 'Ability to achieve concrete results',
@@ -578,6 +579,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Reduction of "either-or" thinking; clarity of task priority; consideration of optional approaches; willingness to compromise short-term for long-range benefits',
   },
   'Agent': {
+    blurb: 'Agents are attentive to both the human relations and task aspects of their work situation. Empathetic and supportive, they are good listeners and known for their willing ear. Agents make people feel wanted and needed. Because Agents respond to others\' needs, people do not feel rejected by Agents. Agents offer friendship and are willing to perform services for others.\n\nAgents have excellent potential for effectively organising and completing tasks. They naturally promote harmony and teamwork and are particularly good at doing for others what they find difficult to do for themselves. Agents fear conflict and dissension. Their supportive approach may enable others to tolerate a situation, rather than encouraging them to engage in active problem-solving. Although they are concerned with fitting into the group, Agents have a fair degree of independence.',
     emotions: 'Accepts affection; rejects aggression',
     goal: 'Group acceptance',
     judgesBy: 'Commitment to tolerate and include everyone',
@@ -589,6 +591,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Strength in realization of who they are and what they can do; firmness and self-assertion; ability to say "no" when appropriate',
   },
   'Appraiser': {
+    blurb: 'Appraisers make creative ideas serve practical purposes. They use direct methods to accomplish results. Appraisers are competitive, but other people tend to view them in a positive light rather than as aggressive because Appraisers are considerate of others. Instead of giving orders or commands, Appraisers involve people in the task through persuasion. They elicit the cooperation of those around them by explaining the rationale of the proposed activities.\n\nAppraisers help others visualise the steps that are necessary to accomplish results. They usually start from a detailed plan of action that they have developed to ensure an orderly progression toward results. Appraisers tend to become impatient when their standards are not maintained or when extensive follow-through is required. They are good critical thinkers and are verbal in their criticisms. Appraisers have better control of the situation if they relax and pace themselves.',
     emotions: 'Is driven to look good',
     goal: '"Victory" with flair',
     judgesBy: 'Ability to initiate activities',
@@ -600,6 +603,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Individual follow-through; empathy when showing disapproval; steadier pace',
   },
   'Counselor': {
+    blurb: 'Counselors are particularly effective at solving people problems. They impress others with their warmth, empathy, and understanding. Their optimism makes it easy to look for the good in others. Counselors prefer to deal with others by building long-lasting relationships. As a good listener with a willing ear for problems, a Counselor often suggests gently and refrains from imposing his or her ideas on others.\n\nCounselors tend to be overly tolerant and patient with non-producers. Under pressure, they may have difficulty confronting performance problems. Counselors may be indirect when issuing orders, making demands, or disciplining others. Counselors often take criticism as a personal affront, but they respond well to attention and compliments for completed assignments. When in a position of responsibility, Counselors tend to be attentive to the quality of working conditions and provide adequate recognition for members of their group.',
     emotions: 'Being approachable; showing affection and understanding',
     goal: 'Friendship; happiness',
     judgesBy: 'Positive acceptance of others; ability to look for the good in people',
@@ -611,6 +615,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Attention to realistic deadlines; initiative to complete the task',
   },
   'Creative': {
+    blurb: 'Persons with a Creative Pattern display opposite forces in their behaviour. Their desire for tangible results is counterbalanced by an equally strong drive for perfection, and their aggressiveness is tempered by sensitivity. Although they think about and weigh possible pros and cons, they are restrained by the wish to explore all possible solutions before making a decision.\n\nCreative persons exhibit foresight when focusing on projects, and they bring about change. Since individuals with a Creative Pattern desire freedom to explore and have the authority to examine and retest findings, they may make daily decisions quickly but may be extremely cautious when making major decisions. In their drive for results and perfection, Creative persons may not be concerned about social poise. As a result, they may be cool, aloof, or blunt.',
     emotions: 'Accepts aggression; restrains expression',
     goal: 'Dominance; unique accomplishments',
     judgesBy: 'Personal standards; progressive ideas for accomplishing tasks',
@@ -622,6 +627,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Warmth; tactful communication; effective team cooperation; recognition of existing sanctions',
   },
   'Developer': {
+    blurb: 'Developers tend to be strong-willed individuals, continually seeking new horizons. As self-reliant, independent thinkers, they prefer to find their own solutions. Relatively free of the constraining influence of the group, Developers pursue a course beyond what others may consider. They can create innovative solutions.\n\nWhile they most often use direct, forceful behaviour, Developers can also shrewdly manipulate people and situations. When required to participate with others in situations that limit their individualism, Developers are apt to become belligerent. They are persistent when pursuing the results they desire and will do whatever is necessary to overcome obstacles to success. Developers are most interested in achieving their own goals. Opportunities for advancement and challenge are important to them. By focusing on results, they may lack empathy or seem uncaring by dismissing others\' concerns.',
     emotions: 'Is concerned with meeting personal needs',
     goal: 'New opportunities',
     judgesBy: 'Ability to meet the Developer\'s standards',
@@ -633,6 +639,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Patience, empathy; participation and collaboration with others; follow-through and attention to quality control',
   },
   'Inspirational': {
+    blurb: 'Persons with the Inspirational Pattern consciously attempt to modify the thoughts and actions of others. They want to control their environment. They are astute at identifying and manipulating an individual\'s existing motives in order to direct that individual\'s behaviour toward a predetermined end.\n\nInspirational persons are clear about the results they want, but they do not always immediately verbalise them. They introduce the results they want only after they have primed the other person, offering friendship to those who desire acceptance, authority to those who seek power, and security to those who want a predictable environment. Inspirational persons can be charming in their interactions. They generally use their well-developed social skills to persuade others whenever possible, achieving goals through cooperation and persuasion.',
     emotions: 'Accepts aggression; downplays need for affection',
     goal: 'Control of their environment or audience',
     judgesBy: 'Projection of personal strength, character, and social power',
@@ -644,6 +651,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Genuine sensitivity; willingness to help others succeed in their own personal development',
   },
   'Investigator': {
+    blurb: 'Objective and analytical, Investigators are dispassionate "anchors of reality." Demanding independence, they combine tenacity and driving force, pushing forward an independent path toward a fixed goal. Investigators are successful at many things, not because of versatility, but due to their single-minded determination to follow through.\n\nInvestigators do well with challenging technical assignments in which they can use valid data to interpret the information and draw conclusions. They respond to logic rather than emotions. Investigators are not especially interested in pleasing people, and they prefer to work alone. They can be perceived as cold, blunt, and tactless. To increase their effectiveness in personal interactions, Investigators need to develop a greater understanding of other people, especially others\' emotions.',
     emotions: 'Is dispassionate; demonstrates self-discipline',
     goal: 'Power through formal roles and positions of authority',
     judgesBy: 'Use of factual information',
@@ -655,6 +663,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Flexibility; acceptance of others; personal involvement with others',
   },
   'Objective Thinker': {
+    blurb: 'Objective Thinkers tend to have highly developed critical thinking abilities. They emphasise the importance of facts when drawing conclusions and planning actions, and they seek correctness and accuracy in everything they do. When they are in doubt about a course of action, they avoid public failure by preparing meticulously.\n\nObjective Thinkers prefer to work with people who, like themselves, are interested in maintaining a peaceful work environment. Considered shy by some, they may be reticent in expressing their feelings. They are particularly uncomfortable with aggressive people. Despite being mild-mannered, Objective Thinkers have a strong need to control their environment. They tend to exert this control indirectly by requiring others to adhere to rules and standards. With their tendency to worry, they may get bogged down in "analysis paralysis."',
     emotions: 'Rejects interpersonal aggression',
     goal: 'Correctness',
     judgesBy: 'Ability to think logically',
@@ -666,6 +675,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Self-disclosure; public discussion of their insights and opinions',
   },
   'Overshift': {
+    blurb: 'Before you proceed, review your profile graph scores for the possibility of errors made in computing your responses or plotting your scores. An Overshift Pattern occurs when all four plotting points are positioned in the upper portion of the graph. This indicates that the person considers all four behavioural styles to be of equally high importance. As a result, the shape of the profile does not match any of the commonly occurring Classical Profile Patterns.\n\nClassical Profile Patterns represent combinations of high and low plotting points and the Overshift Pattern has only high plotting points. When an Overshift occurs in Graph III, it is recommended that one of the other two graphs be used for interpretation, but remember that Graph I or Graph II represents only half of the responses. It may be helpful to retake the profile with a clearer focus.',
     emotions: 'Considers all four behavioral styles to be of high importance',
     goal: 'Varies by situation',
     judgesBy: 'Varies by situation',
@@ -678,6 +688,7 @@ const CLASSICAL_PATTERNS = {
     isSpecial: true,
   },
   'Perfectionist': {
+    blurb: 'Perfectionists are systematic, precise thinkers and workers who follow procedure in both their personal and work lives. Extremely conscientious, they are diligent in work that requires attention to detail and accuracy. Because they desire stable conditions and predictable activities, Perfectionists are most comfortable in a clearly defined work environment. They want specifics on work expectations, time requirements, and evaluation procedures.\n\nPerfectionists may bog down in the details of the decision-making process. They can make major decisions but may be criticised for the amount of time they take to gather and analyse information. Although they like to hear the opinions of their managers, Perfectionists take risks when they have facts that they can interpret and use to draw conclusions. Perfectionists evaluate themselves and others by precise standards for achieving concrete results while adhering to standard operating procedures. By accepting sincere compliments, Perfectionists can increase their self-confidence.',
     emotions: 'Displays competence; is restrained and cautious',
     goal: 'Stability; predictable accomplishments',
     judgesBy: 'Precise standards',
@@ -689,6 +700,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Role flexibility; independence and interdependence; belief in self-worth',
   },
   'Persuader': {
+    blurb: 'Persuaders work with people, striving to be friendly while pushing forward their own objectives. Outgoing and interested in people, Persuaders have the ability to gain the respect and confidence of various types of people. Persuaders can impress their thoughts on others, drawing people to them and retaining them as clients or friends.\n\nThe most favourable environment for Persuaders includes working with people, receiving challenging assignments, and experiencing a variety of work activities that require mobility. They seek work assignments that will give them the opportunity to look good. As a result of their natural positive outlook, Persuaders may be too optimistic about a project\'s results and others\' potential. Persuaders also tend to overestimate their ability to change the behaviour of others. Once alerted to the importance of the "little things," Persuaders can use the information to balance their enthusiasm with a realistic assessment of the situation.',
     emotions: 'Trusts others; is enthusiastic',
     goal: 'Authority and prestige; status symbols',
     judgesBy: 'Ability to verbalize; flexibility',
@@ -700,6 +712,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Challenging assignments; attention to task-directed service and key details; objective data analysis',
   },
   'Practitioner': {
+    blurb: 'Practitioners value proficiency in specialised areas. Spurred by a desire to be "good at something," they carefully monitor their own work performance. Although their aim is to be "the best" in one area, Practitioners frequently give the impression that they know something about everything.\n\nAs Practitioners interact with others, their general attitude is relaxed, diplomatic, and easygoing. This congenial attitude may change quickly in their own work area when they become intensely focused in order to meet high standards for performance. Because they value self-discipline, Practitioners evaluate others on the basis of their ability to focus on daily performance. Although they naturally concentrate on developing an organised approach to work and keeping their own skills sharp, Practitioners also need to help others build skills and increase their appreciation of those who contribute to the work effort.',
     emotions: 'Wants to keep up with others in effort and technical performance',
     goal: 'Personal growth',
     judgesBy: 'Self-discipline; position and promotions',
@@ -711,6 +724,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Genuine collaboration for common benefit; delegation of key tasks to appropriate individuals',
   },
   'Promoter': {
+    blurb: 'Promoters have an extensive network of contacts. They are usually gregarious and socially adept, and they develop friendships easily. They rarely antagonise others intentionally. Promoters seek favourable social environments where they can develop and maintain their contacts. Verbally skilled, they promote their own ideas and create enthusiasm for others\' projects.\n\nSince Promoters prefer to participate and interact with others in activities, they may be less interested in task accomplishment. They may continue to seek out any situation that involves meeting people and socialising, even though their job requires attention to more solitary activities. Usually optimistic, Promoters tend to overestimate the ability of others. They often leap to favourable conclusions without considering all the facts. Time management may present challenges for Promoters.',
     emotions: 'Is willing to accept others',
     goal: 'Approval, popularity',
     judgesBy: 'Verbal skills',
@@ -722,6 +736,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Control of time; objectivity; sense of urgency; emotional control; follow-through on promises, tasks',
   },
   'Result-Oriented': {
+    blurb: 'Result-Oriented people display self-confidence, which some may interpret as arrogance. They actively seek opportunities that test and develop their abilities to accomplish results. Result-Oriented persons thrive on difficult, competitive situations, unique assignments, and "important" positions. They undertake responsibilities with an air of self-importance and display self-satisfaction once they have finished.\n\nResult-Oriented people tend to avoid constraining factors, such as direct controls, time-consuming details, and routine work. Because they are forceful and direct, they may have difficulties with others. Result-Oriented people prize their independence and may become restless when involved with group activities or committee work. They are quick thinkers, and they are impatient and fault-finding with those who are not. In their uncompromising drive for results, they may appear blunt and uncaring.',
     emotions: 'Verbalizes ego strength; displays rugged individualism',
     goal: 'Dominance and independence',
     judgesBy: 'Ability to accomplish the task quickly',
@@ -733,6 +748,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Verbalization of their reasoning; consideration of other views and ideas about goals and problem solutions; genuine concern for others; patience and humility',
   },
   'Specialist': {
+    blurb: 'Specialists "wear well" with others. With their moderate, controlled stance and modest demeanour, they are able to work well with a number of different styles. Specialists are considerate, patient, and always willing to help those they consider friends. They build close relationships with a relatively small group of associates in their work environment.\n\nTheir efforts are directed toward retaining familiar and predictable patterns. Most effective in specialised areas, Specialists plan their work along directed channels and achieve a remarkably consistent level of performance. Specialists are slow to adapt to change. Prior conditioning gives them time to change their procedures while maintaining a consistent level of performance. Specialists may also require help when starting new projects or developing shortcut methods to meet deadlines.',
     emotions: 'Is calculatingly moderate; accommodates others',
     goal: 'Maintenance of the status quo; controlled environment',
     judgesBy: 'Friendship standards; competence',
@@ -744,6 +760,7 @@ const CLASSICAL_PATTERNS = {
     increaseEffectiveness: 'Public discussion of their ideas; self-confidence based on feedback; shortcut methods',
   },
   'Tight': {
+    blurb: 'Before you proceed, review your profile graph scores for the possibility of errors made in computing your responses or plotting your scores. A Tight Pattern occurs when all four plotting points are positioned in the midline of the graph with only one segment difference between the four points. This indicates that the person considers all four behavioural styles to be of equal importance. As a result, the shape of the profile does not match any of the commonly occurring patterns.\n\nClassical Profile Patterns represent the combination of high and low plotting points and the Tight Pattern has plotting points only in the midline. When a Tight Pattern occurs in Graph III, it is recommended that one of the other two graphs be used for interpretation, but remember that Graph I or Graph II represents only half of the responses. It may be helpful to retake the profile with a clearer focus.',
     emotions: 'Considers all four behavioral styles to be of equal importance',
     goal: 'Varies by situation',
     judgesBy: 'Varies by situation',
@@ -756,6 +773,7 @@ const CLASSICAL_PATTERNS = {
     isSpecial: true,
   },
   'Undershift': {
+    blurb: 'Before you proceed, review your profile graph scores for the possibility of errors made in computing your responses or plotting your scores. An Undershift Pattern occurs when all four plotting points are positioned in the lower portion of the graph. This indicates that the person considers all four behavioural styles to be of equally low importance. As a result, the shape of the profile does not match any of the commonly occurring Classical Profile Patterns.\n\nClassical Profile Patterns represent the combination of high and low plotting points and the Undershift Pattern has only low plotting points. When an Undershift Pattern occurs in Graph III, it is recommended that one of the other two graphs be used for interpretation, but remember that Graph I or Graph II represents only half of the responses. It may be helpful to retake the profile with a clearer focus.',
     emotions: 'Considers all four behavioral styles to be of equally low importance',
     goal: 'Varies by situation',
     judgesBy: 'Varies by situation',
@@ -944,18 +962,7 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
     </div>`;
   }
 
-  // Profile Graphs
-  html += `
-    <div class="results-section">
-      <div class="results-section__title">Personal Profile System Graphs</div>
-      <div class="pp-graphs-row">
-        ${renderGraph('Graph I', 'graphI', graphI, segI)}
-        ${renderGraph('Graph II', 'graphII', graphII, segII)}
-        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
-      </div>
-    </div>`;
-
-  // Classical Profile Pattern (before tally so it appears near graphs in PDF)
+  // Classical Profile Pattern (shown first, before graphs)
   if (patternName && pattern) {
     const isSpecial = pattern.isSpecial;
     html += `
@@ -966,6 +973,7 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
           <div class="pattern-card__name">${patternName} Pattern</div>
           <div class="pattern-card__code">Graph III Segments: D=${segIII.D} i=${segIII.i} S=${segIII.S} C=${segIII.C}</div>
         </div>
+        ${pattern.blurb ? `<div class="pattern-card__blurb">${pattern.blurb.split('\n\n').map(p => `<p>${p}</p>`).join('')}</div>` : ''}
         <div class="pattern-card__body">
           <div class="pattern-card__grid">
             <div class="pattern-card__item">
@@ -1009,6 +1017,17 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
       </div>
     </div>`;
   }
+
+  // Profile Graphs
+  html += `
+    <div class="results-section">
+      <div class="results-section__title">Personal Profile System Graphs</div>
+      <div class="pp-graphs-row">
+        ${renderGraph('Graph I', 'graphI', graphI, segI)}
+        ${renderGraph('Graph II', 'graphII', graphII, segII)}
+        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
+      </div>
+    </div>`;
 
   // Tally Box
   const symbols = { D: 'Z', i: '■', S: '▲', C: '★', N: 'N' };
