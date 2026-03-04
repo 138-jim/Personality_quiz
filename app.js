@@ -1144,23 +1144,28 @@ function downloadResultsPdf() {
   const actionsEl = resultsContent.querySelector('.results__actions');
   if (actionsEl) actionsEl.style.display = 'none';
 
-  const opt = {
-    margin: [8, 8, 8, 8],
-    filename: `DISC_Results_${candidateName.replace(/\s+/g, '_')}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-  };
+  // Wait for fonts then generate PDF
+  document.fonts.ready.then(() => {
+    window.scrollTo(0, 0);
 
-  html2pdf().set(opt).from(resultsContent).save().then(() => {
-    nameHeader.remove();
-    if (actionsEl) actionsEl.style.display = '';
-    showToast('PDF downloaded');
-  }).catch(err => {
-    console.error('PDF generation error:', err);
-    nameHeader.remove();
-    if (actionsEl) actionsEl.style.display = '';
-    showToast('PDF download failed — try Print (Ctrl+P)');
+    const opt = {
+      margin: [8, 8, 8, 8],
+      filename: `DISC_Results_${candidateName.replace(/\s+/g, '_')}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    };
+
+    html2pdf().set(opt).from(resultsContent).save().then(() => {
+      nameHeader.remove();
+      if (actionsEl) actionsEl.style.display = '';
+      showToast('PDF downloaded');
+    }).catch(err => {
+      console.error('PDF generation error:', err);
+      nameHeader.remove();
+      if (actionsEl) actionsEl.style.display = '';
+      showToast('PDF download failed — try Print (Ctrl+P)');
+    });
   });
 }
 
