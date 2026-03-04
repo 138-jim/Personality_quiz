@@ -809,8 +809,8 @@ const PATTERN_LOOKUP = {};
           PATTERN_LOOKUP[`${d}${i}${s}${c}`] = PATTERN_ABBREVS[codes[idx++]];
 })();
 
-function getClassicalPattern(segIII) {
-  const key = `${segIII.D}${segIII.i}${segIII.S}${segIII.C}`;
+function getClassicalPattern(segments) {
+  const key = `${segments.D}${segments.i}${segments.S}${segments.C}`;
   return PATTERN_LOOKUP[key] || 'Tight';
 }
 
@@ -879,7 +879,6 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
   // Explainer blurb with per-graph pattern results
   const patternI = getClassicalPattern(segI);
   const patternII = getClassicalPattern(segII);
-  const patternIII = getClassicalPattern(segIII);
   html += `
     <div class="results-section results-explainer">
       <p>The way these work is to give back results, as graphs, in three areas:</p>
@@ -892,65 +891,72 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
       <ol>
         <li><strong>${patternI}</strong></li>
         <li><strong>${patternII}</strong></li>
-        <li><strong>${patternIII}</strong></li>
+        <li><strong>${patternName}</strong></li>
       </ol>
     </div>`;
 
-  // Classical Profile Pattern (page 1 in PDF)
-  if (patternName && pattern) {
-    const isSpecial = pattern.isSpecial;
-    html += `
+  // Render pattern cards for all three graphs
+  function renderPatternCard(name, pData, subtitle) {
+    if (!name || !pData) return '';
+    const isSpecial = pData.isSpecial;
+    return `
     <div class="results-section">
-      <div class="results-section__title">Classical Profile Pattern</div>
+      <div class="results-section__title">${subtitle}</div>
       <div class="pattern-card ${isSpecial ? 'pattern-card--special' : ''}">
         <div class="pattern-card__header">
-          <div class="pattern-card__name">${patternName} Pattern</div>
-          <div class="pattern-card__code">Graph III Segments: D=${segIII.D} i=${segIII.i} S=${segIII.S} C=${segIII.C}</div>
+          <div class="pattern-card__name">${name} Pattern</div>
         </div>
-        ${pattern.blurb ? `<div class="pattern-card__blurb">${pattern.blurb.split('\n\n').map(p => `<p>${p}</p>`).join('')}</div>` : ''}
+        ${pData.blurb ? `<div class="pattern-card__blurb">${pData.blurb.split('\n\n').map(p => `<p>${p}</p>`).join('')}</div>` : ''}
         <div class="pattern-card__body">
           <div class="pattern-card__grid">
             <div class="pattern-card__item">
               <div class="pattern-card__label">Emotions</div>
-              <div class="pattern-card__value">${pattern.emotions}</div>
+              <div class="pattern-card__value">${pData.emotions}</div>
             </div>
             <div class="pattern-card__item">
               <div class="pattern-card__label">Goal</div>
-              <div class="pattern-card__value">${pattern.goal}</div>
+              <div class="pattern-card__value">${pData.goal}</div>
             </div>
             <div class="pattern-card__item">
               <div class="pattern-card__label">Judges Others By</div>
-              <div class="pattern-card__value">${pattern.judgesBy}</div>
+              <div class="pattern-card__value">${pData.judgesBy}</div>
             </div>
             <div class="pattern-card__item">
               <div class="pattern-card__label">Influences Others By</div>
-              <div class="pattern-card__value">${pattern.influencesBy}</div>
+              <div class="pattern-card__value">${pData.influencesBy}</div>
             </div>
             <div class="pattern-card__item">
               <div class="pattern-card__label">Value to Organisation</div>
-              <div class="pattern-card__value">${pattern.valueToOrg}</div>
+              <div class="pattern-card__value">${pData.valueToOrg}</div>
             </div>
             <div class="pattern-card__item">
               <div class="pattern-card__label">Overuses</div>
-              <div class="pattern-card__value">${pattern.overuses}</div>
+              <div class="pattern-card__value">${pData.overuses}</div>
             </div>
             <div class="pattern-card__item">
               <div class="pattern-card__label">Under Pressure</div>
-              <div class="pattern-card__value">${pattern.underPressure}</div>
+              <div class="pattern-card__value">${pData.underPressure}</div>
             </div>
             <div class="pattern-card__item">
               <div class="pattern-card__label">Fears</div>
-              <div class="pattern-card__value">${pattern.fears}</div>
+              <div class="pattern-card__value">${pData.fears}</div>
             </div>
             <div class="pattern-card__item pattern-card__item--full">
               <div class="pattern-card__label">Would Increase Effectiveness With</div>
-              <div class="pattern-card__value">${pattern.increaseEffectiveness}</div>
+              <div class="pattern-card__value">${pData.increaseEffectiveness}</div>
             </div>
           </div>
         </div>
       </div>
     </div>`;
   }
+
+  const dataI = CLASSICAL_PATTERNS[patternI];
+  const dataII = CLASSICAL_PATTERNS[patternII];
+
+  html += renderPatternCard(patternI, dataI, 'Your Approach at Work');
+  html += renderPatternCard(patternII, dataII, 'Your Approach in Personal Life');
+  html += renderPatternCard(patternName, pattern, 'Your Self-Perception');
 
   // Profile Graphs (page 2 in PDF)
   html += `
@@ -1099,8 +1105,7 @@ function downloadResultsPdf() {
   if (actionsEl) actionsEl.style.display = 'none';
 
   // Hide tally box section for PDF
-  const tallySection = Array.from(resultsContent.querySelectorAll('.results-section'))
-    .find(s => s.querySelector('.tally-box'));
+  const tallySection = resultsContent.querySelector('.tally-box')?.closest('.results-section');
   if (tallySection) tallySection.style.display = 'none';
 
   // Add compact class to shrink pattern card for PDF page 2
@@ -1131,18 +1136,15 @@ function downloadResultsPdf() {
     };
 
     html2pdf().set(opt).from(resultsContent).save().then(() => {
-      nameHeader.remove();
-      if (actionsEl) actionsEl.style.display = '';
-      if (tallySection) tallySection.style.display = '';
-      resultsContent.classList.remove('pdf-render');
       showToast('PDF downloaded');
     }).catch(err => {
       console.error('PDF generation error:', err);
+      showToast('PDF download failed — try Print (Ctrl+P)');
+    }).finally(() => {
       nameHeader.remove();
       if (actionsEl) actionsEl.style.display = '';
       if (tallySection) tallySection.style.display = '';
       resultsContent.classList.remove('pdf-render');
-      showToast('PDF download failed — try Print (Ctrl+P)');
     });
   });
 }
