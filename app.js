@@ -787,117 +787,31 @@ const CLASSICAL_PATTERNS = {
   },
 };
 
-// --- Classical Profile Pattern Lookup ---
+// --- Classical Profile Pattern Lookup (2401 entries from reference PDF) ---
+const PATTERN_ABBREVS = {
+  OV:'Overshift',UN:'Undershift',TI:'Tight',CR:'Creative',
+  IN:'Inspirational',AP:'Appraiser',AC:'Achiever',RO:'Result-Oriented',
+  IV:'Investigator',DV:'Developer',PM:'Promoter',SP:'Specialist',
+  OT:'Objective Thinker',PF:'Perfectionist',PR:'Practitioner',
+  CO:'Counselor',AG:'Agent',PE:'Persuader'
+};
+
+const PATTERN_DATA = "OV,OV,OV,IN,IN,IN,IN,OV,OV,OV,IN,IN,IN,IN,OV,OV,OV,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,OV,OV,OV,AC,AC,AC,AC,OV,OV,OV,IN,IN,IN,IN,OV,OV,OV,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,OV,OV,OV,AC,AC,AC,AC,OV,OV,OV,AC,AC,AC,AC,OV,OV,OV,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,OV,OV,OV,AC,AC,AC,AC,OV,OV,OV,AC,AC,AC,AC,RO,RO,RO,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,OV,OV,OV,IN,IN,IN,IN,OV,OV,OV,IN,IN,IN,IN,OV,OV,OV,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,OV,OV,OV,AC,AC,AC,AC,OV,OV,OV,IN,IN,IN,IN,OV,OV,OV,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,CR,CR,CR,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,OV,OV,OV,AC,AC,AC,AC,OV,OV,OV,AC,AC,AC,AC,OV,OV,OV,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,CR,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,IV,IV,IV,AC,AC,AC,IV,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,OV,OV,OV,CO,CO,CO,CO,OV,OV,OV,CO,CO,CO,OV,OV,OV,OV,PE,PE,PE,PE,AP,AP,AP,AP,PE,PE,PE,AP,AP,AP,PE,PE,PE,PE,AP,AP,AP,AP,PE,PE,PE,AP,AP,AP,PE,PE,PE,PE,OV,OV,OV,AG,AG,AG,AG,OV,OV,OV,AG,AG,AG,AG,OV,OV,OV,AG,CO,CO,CO,AP,AP,AP,TI,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,PE,PE,PE,PE,OV,OV,OV,AG,AG,AG,AG,OV,OV,OV,AG,AG,AG,AG,OV,OV,OV,CO,CO,CO,CO,AP,AP,AP,TI,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,AP,AP,AP,IN,IN,IN,IN,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,TI,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,CR,CR,CR,RO,RO,RO,RO,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,IV,IV,IV,AC,AC,AC,AC,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,CR,CR,CR,DV,DV,DV,DV,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,AG,AG,AG,AG,PR,PR,TI,CO,CO,CO,CO,PR,PR,PR,TI,CO,CO,CO,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,TI,TI,SP,SP,SP,OT,OT,TI,TI,TI,UN,UN,OT,OT,OT,TI,TI,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,TI,TI,UN,UN,OT,OT,OT,TI,TI,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,SP,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,TI,TI,UN,UN,OT,OT,OT,TI,TI,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PM,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,TI,TI,UN,UN,OT,OT,OT,TI,TI,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,TI,TI,UN,UN,OT,OT,OT,TI,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PR,PR,PR,AG,AG,AG,AG,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,CO,CO,CO,CO,PR,PR,PR,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,AP,AP,CO,CO,CO,CO,CO,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,AP,AP,AP,PM,PM,PM,PM,PF,PF,PF,SP,SP,SP,SP,PF,PF,SP,SP,SP,SP,SP,PF,PF,SP,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,PF,PF,PF,SP,SP,SP,SP,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN,OT,OT,OT,UN,UN,UN,UN";
+
+const PATTERN_LOOKUP = {};
+(function() {
+  const codes = PATTERN_DATA.split(',');
+  let idx = 0;
+  for (let d = 7; d >= 1; d--)
+    for (let i = 7; i >= 1; i--)
+      for (let s = 7; s >= 1; s--)
+        for (let c = 7; c >= 1; c--)
+          PATTERN_LOOKUP[`${d}${i}${s}${c}`] = PATTERN_ABBREVS[codes[idx++]];
+})();
+
 function getClassicalPattern(segIII) {
-  const { D, i: I, S, C } = segIII;
-  const segs = { D, i: I, S, C };
-  const dims = ['D', 'i', 'S', 'C'];
-  const vals = [D, I, S, C];
-  const max = Math.max(...vals);
-  const min = Math.min(...vals);
-  const range = max - min;
-
-  // Special patterns
-  if (min >= 6 && range <= 1) return 'Overshift';
-  if (max <= 2) return 'Undershift';
-  if (range <= 1 && min >= 3 && max <= 5) return 'Tight';
-
-  // Sort dimensions by segment value descending
-  const sorted = dims.slice().sort((a, b) => segs[b] - segs[a]);
-  const [first, second, third, fourth] = sorted;
-  const v1 = segs[first], v2 = segs[second], v3 = segs[third], v4 = segs[fourth];
-
-  // Check for Overshift with wider range
-  if (min >= 5) return 'Overshift';
-  if (max <= 3 && range <= 1) return 'Undershift';
-
-  // Single dominant dimension (clear leader, gap >= 3 from second)
-  if (v1 - v2 >= 3) {
-    switch (first) {
-      case 'D': return 'Result-Oriented';
-      case 'i': return 'Promoter';
-      case 'S': return 'Specialist';
-      case 'C': return 'Objective Thinker';
-    }
-  }
-
-  // Determine high dims (>= 5) and low dims (<= 3)
-  const highDims = dims.filter(d => segs[d] >= 5);
-  const lowDims = dims.filter(d => segs[d] <= 3);
-
-  // Two high dimensions
-  if (highDims.length === 2) {
-    const pair = new Set(highDims);
-    if (pair.has('D') && pair.has('i')) {
-      if (segs.i > segs.D) return 'Persuader';
-      if (segs.D > segs.i) return 'Appraiser';
-      return 'Inspirational';
-    }
-    if (pair.has('D') && pair.has('C')) {
-      if (segs.D >= segs.C + 2) return 'Developer';
-      if (segs.C > segs.D) return 'Investigator';
-      return segs.D >= segs.C ? 'Creative' : 'Achiever';
-    }
-    if (pair.has('D') && pair.has('S')) return 'Practitioner';
-    if (pair.has('i') && pair.has('S')) return segs.i >= segs.S ? 'Counselor' : 'Agent';
-    if (pair.has('i') && pair.has('C')) return 'Appraiser';
-    if (pair.has('S') && pair.has('C')) return 'Perfectionist';
-  }
-
-  // Three high dimensions — find the one low dim
-  if (highDims.length >= 3) {
-    if (min >= 5) return 'Overshift';
-    const lowDim = sorted[3];
-    if (lowDim === 'C') return 'Persuader';
-    if (lowDim === 'S') return 'Inspirational';
-    if (lowDim === 'i') return 'Creative';
-    if (lowDim === 'D') return 'Perfectionist';
-  }
-
-  // One high dimension with close second
-  if (highDims.length === 1) {
-    const h = highDims[0];
-    const secondDim = sorted[1];
-    if (h === 'D') {
-      if (secondDim === 'i') return 'Inspirational';
-      if (secondDim === 'C') return segs.D >= 6 ? 'Developer' : 'Creative';
-      if (secondDim === 'S') return 'Practitioner';
-      return 'Result-Oriented';
-    }
-    if (h === 'i') {
-      if (secondDim === 'D') return 'Persuader';
-      if (secondDim === 'S') return 'Counselor';
-      return 'Promoter';
-    }
-    if (h === 'S') {
-      if (secondDim === 'i') return 'Agent';
-      if (secondDim === 'C') return 'Perfectionist';
-      return 'Specialist';
-    }
-    if (h === 'C') {
-      if (secondDim === 'D') return 'Investigator';
-      if (secondDim === 'S') return 'Perfectionist';
-      return 'Objective Thinker';
-    }
-  }
-
-  // No clearly high dimensions — use top two
-  const pair = new Set([first, second]);
-  if (pair.has('D') && pair.has('i')) return segs.D >= segs.i ? 'Inspirational' : 'Persuader';
-  if (pair.has('D') && pair.has('C')) return segs.D >= segs.C ? 'Creative' : 'Achiever';
-  if (pair.has('D') && pair.has('S')) return 'Practitioner';
-  if (pair.has('i') && pair.has('S')) return segs.i >= segs.S ? 'Counselor' : 'Agent';
-  if (pair.has('i') && pair.has('C')) return 'Appraiser';
-  if (pair.has('S') && pair.has('C')) return 'Perfectionist';
-
-  // Absolute fallback — single highest
-  switch (first) {
-    case 'D': return 'Result-Oriented';
-    case 'i': return 'Promoter';
-    case 'S': return 'Specialist';
-    case 'C': return 'Objective Thinker';
-  }
-  return 'Tight';
+  const key = `${segIII.D}${segIII.i}${segIII.S}${segIII.C}`;
+  return PATTERN_LOOKUP[key] || 'Tight';
 }
 
 function renderGraph(title, graphKey, rawScores, segments) {
