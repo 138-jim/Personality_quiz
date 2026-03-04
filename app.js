@@ -1132,23 +1132,17 @@ function downloadResultsPdf() {
     return;
   }
 
-  // Build a self-contained container with white background for clean PDF
-  const wrapper = document.createElement('div');
-  wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:900px;background:#fff;padding:24px;font-family:Reddit Sans,sans-serif;color:#00280A;';
+  // Temporarily add name header and hide action buttons for PDF capture
+  const nameHeader = document.createElement('div');
+  nameHeader.id = 'pdfNameHeader';
+  nameHeader.style.cssText = 'text-align:center;margin-bottom:16px;padding:14px;background:#008746;border-radius:10px;';
+  nameHeader.innerHTML = `
+    <div style="color:#FAFFC8;font-size:20px;font-weight:300;">${escapeHtml(candidateName)}</div>
+    <div style="color:rgba(250,255,200,0.8);font-size:13px;margin-top:4px;">DISC Personality Profile.</div>`;
+  resultsContent.insertBefore(nameHeader, resultsContent.firstChild);
 
-  // Name header — bellette Bold bg, Brilliance text
-  wrapper.innerHTML = `
-    <div style="text-align:center;margin-bottom:16px;padding:14px;background:#008746;border-radius:10px;">
-      <div style="color:#FAFFC8;font-size:20px;font-weight:300;">${escapeHtml(candidateName)}</div>
-      <div style="color:rgba(250,255,200,0.8);font-size:13px;margin-top:4px;">DISC Personality Profile.</div>
-    </div>`;
-
-  // Clone results without action buttons
-  const clone = resultsContent.cloneNode(true);
-  const actions = clone.querySelector('.results__actions');
-  if (actions) actions.remove();
-  wrapper.appendChild(clone);
-  document.body.appendChild(wrapper);
+  const actionsEl = resultsContent.querySelector('.results__actions');
+  if (actionsEl) actionsEl.style.display = 'none';
 
   const opt = {
     margin: [8, 8, 8, 8],
@@ -1158,12 +1152,14 @@ function downloadResultsPdf() {
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
   };
 
-  html2pdf().set(opt).from(wrapper).save().then(() => {
-    document.body.removeChild(wrapper);
+  html2pdf().set(opt).from(resultsContent).save().then(() => {
+    nameHeader.remove();
+    if (actionsEl) actionsEl.style.display = '';
     showToast('PDF downloaded');
   }).catch(err => {
     console.error('PDF generation error:', err);
-    if (wrapper.parentNode) document.body.removeChild(wrapper);
+    nameHeader.remove();
+    if (actionsEl) actionsEl.style.display = '';
     showToast('PDF download failed — try Print (Ctrl+P)');
   });
 }
