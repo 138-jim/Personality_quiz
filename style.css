@@ -23,7 +23,7 @@
   --gray-900: #212121;
 
   /* Semantic Colors */
-  --bg: var(--bellette-brilliance);
+  --bg: var(--bellette-bold);
   --surface: var(--white);
   --surface-alt: var(--gray-50);
   --text: var(--bellette-brazen);
@@ -226,9 +226,9 @@ strong, b {
   text-align: center;
   margin: 0 calc(var(--space-xl) * -1) var(--space-3xl);
   padding: var(--space-4xl) var(--space-xl);
-  background: var(--bellette-bold);
+  background: var(--bellette-brilliance);
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-  color: var(--bellette-brilliance);
+  color: var(--bellette-brazen);
 }
 
 .hero__title {
@@ -237,6 +237,7 @@ strong, b {
   line-height: 1.05;
   margin-bottom: var(--space-lg);
   letter-spacing: -0.03em;
+  color: var(--bellette-brazen);
 }
 
 .hero__subtitle {
@@ -409,12 +410,12 @@ strong, b {
 .progress__label {
   font-weight: 600;
   font-size: 0.875rem;
-  color: var(--bellette-brazen);
+  color: var(--bellette-brilliance);
 }
 
 .progress__percent {
   font-weight: 700;
-  color: var(--bellette-bold);
+  color: var(--bellette-bright);
 }
 
 .progress__bar {
@@ -511,11 +512,11 @@ strong, b {
 /* === Results Hero === */
 .results-hero {
   text-align: center;
-  background: var(--bellette-bold);
+  background: var(--bellette-brilliance);
   padding: var(--space-4xl) var(--space-xl);
   margin: 0 calc(var(--space-xl) * -1) var(--space-3xl); /* Flushed with top of screen */
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-  color: var(--bellette-brilliance);
+  color: var(--bellette-brazen);
 }
 
 .results-hero__badge {
@@ -534,6 +535,7 @@ strong, b {
   font-size: var(--h-title-size);
   font-weight: var(--h-title-weight);
   margin-bottom: var(--space-xs);
+  color: var(--bellette-brazen);
 }
 
 .results-hero__subtitle {
