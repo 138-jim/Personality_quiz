@@ -133,14 +133,18 @@ strong, b {
   top: 0;
   left: 0;
   right: 0;
+  height: 72px;
   z-index: 100;
   background: var(--bellette-brazen);
+  display: flex;
+  align-items: center;
 }
 
 .navbar__container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--space-md) var(--space-xl);
+  padding: 0 var(--space-xl);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -161,6 +165,7 @@ strong, b {
 .navbar__logo-svg {
   height: 24px;
   width: auto;
+  display: block;
   filter: brightness(0) invert(100%); /* White logotype for dark background */
 }
 
@@ -182,17 +187,19 @@ strong, b {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .navbar__dog img {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 /* === Main Content === */
 .main {
   flex: 1;
-  padding-top: 72px; /* Matches navbar height (16px padding + 40px dog + 16px padding) */
+  padding-top: 72px; /* Exactly matches navbar height */
   padding-bottom: var(--space-4xl);
 }
 
@@ -201,8 +208,8 @@ strong, b {
   display: none;
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 var(--space-xl) var(--space-2xl); /* Removed top padding to let hero flush */
-  animation: fadeIn 0.4s ease;
+  padding: 0 var(--space-xl) var(--space-2xl); /* No top padding */
+  animation: fadeIn 0.4s ease forwards;
 }
 
 .screen.active {
@@ -210,14 +217,14 @@ strong, b {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(0); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* === Hero Section === */
 .hero {
   text-align: center;
-  margin: 0 calc(var(--space-xl) * -1) var(--space-3xl); /* Removed negative top margin */
+  margin: 0 calc(var(--space-xl) * -1) var(--space-3xl);
   padding: var(--space-4xl) var(--space-xl);
   background: var(--bellette-bold);
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
