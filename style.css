@@ -250,11 +250,12 @@ strong, b {
 
 /* === Cards === */
 .card {
-  background: var(--surface);
+  background: var(--bellette-brilliance);
   border: none;
   border-radius: var(--radius-lg);
   padding: var(--space-3xl);
   box-shadow: var(--shadow-lg);
+  color: var(--bellette-brazen);
 }
 
 .card--welcome {
@@ -541,6 +542,111 @@ strong, b {
 .results-hero__subtitle {
   font-size: var(--sub-size);
   opacity: 0.8;
+}
+
+/* === Results Content === */
+#resultsContent {
+  background: var(--bellette-brilliance);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  margin: 0 auto;
+  color: var(--bellette-brazen);
+}
+
+.results-section {
+  margin-bottom: var(--space-3xl);
+}
+
+.results-section__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--bellette-brilliance); /* Contrast on dark green background */
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.results-section__title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--bellette-brilliance);
+  opacity: 0.3;
+  margin-left: var(--space-sm);
+}
+
+/* === Pattern Card === */
+.pattern-card {
+  background: var(--white); /* White sub-cards on cream resultsContent */
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.pattern-card__header {
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--bellette-bold);
+  color: var(--bellette-brilliance);
+}
+
+.pattern-card__name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.pattern-card__blurb {
+  padding: var(--space-lg) var(--space-xl);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--bellette-brazen);
+  border-bottom: 1px solid var(--border);
+}
+
+.pattern-card__body {
+  padding: var(--space-xl);
+}
+
+.pattern-card__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.pattern-card__item {
+  padding: var(--space-md);
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--bellette-bright);
+}
+
+.pattern-card__item--full {
+  grid-column: 1 / -1;
+}
+
+.pattern-card__label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--bellette-bold);
+  margin-bottom: var(--space-xs);
+}
+
+.pattern-card__value {
+  font-size: 0.875rem;
+  color: var(--bellette-brazen);
+  line-height: 1.5;
+}
+
+/* === Tally Box === */
+.tally-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
 /* === Footer === */
