@@ -192,7 +192,7 @@ strong, b {
 /* === Main Content === */
 .main {
   flex: 1;
-  padding-top: 80px;
+  padding-top: 72px; /* Matches navbar height (16px padding + 40px dog + 16px padding) */
   padding-bottom: var(--space-4xl);
 }
 
@@ -201,7 +201,7 @@ strong, b {
   display: none;
   max-width: 800px;
   margin: 0 auto;
-  padding: var(--space-2xl) var(--space-xl);
+  padding: 0 var(--space-xl) var(--space-2xl); /* Removed top padding to let hero flush */
   animation: fadeIn 0.4s ease;
 }
 
@@ -217,7 +217,7 @@ strong, b {
 /* === Hero Section === */
 .hero {
   text-align: center;
-  margin: calc(var(--space-2xl) * -1) calc(var(--space-xl) * -1) var(--space-3xl);
+  margin: 0 calc(var(--space-xl) * -1) var(--space-3xl); /* Removed negative top margin */
   padding: var(--space-4xl) var(--space-xl);
   background: var(--bellette-bold);
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
@@ -506,7 +506,7 @@ strong, b {
   text-align: center;
   background: var(--bellette-bold);
   padding: var(--space-4xl) var(--space-xl);
-  margin: calc(var(--space-2xl) * -1) calc(var(--space-xl) * -1) var(--space-3xl);
+  margin: 0 calc(var(--space-xl) * -1) var(--space-3xl); /* Flushed with top of screen */
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   color: var(--bellette-brilliance);
 }
@@ -555,6 +555,19 @@ strong, b {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .navbar__logo-svg {
+    height: 20px;
+  }
+  
+  .navbar__dog {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .main {
+    padding-top: 64px; /* Matches mobile navbar height (16px + 32px + 16px) */
+  }
+  
   .hero__title, .results-hero__name {
     font-size: 3rem;
   }
