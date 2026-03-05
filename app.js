@@ -954,8 +954,11 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
   const dataI = CLASSICAL_PATTERNS[patternI];
   const dataII = CLASSICAL_PATTERNS[patternII];
 
+  html += '<div class="pdf-page-break"></div>';
   html += renderPatternCard(patternI, dataI, 'Your Approach at Work');
+  html += '<div class="pdf-page-break"></div>';
   html += renderPatternCard(patternII, dataII, 'Your Approach in Personal Life');
+  html += '<div class="pdf-page-break"></div>';
   html += renderPatternCard(patternName, pattern, 'Your Self-Perception');
 
   // Profile Graphs (page 2 in PDF)
