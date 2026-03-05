@@ -441,9 +441,7 @@ function renderQuestion() {
   });
 
   backBtn.style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
-  nextBtn.innerHTML = currentQuestion === total - 1 
-    ? `See Results <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`
-    : `Next <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+  nextBtn.textContent = currentQuestion === total - 1 ? 'See Results' : 'Next';
 }
 
 function handleSelection() {
@@ -887,12 +885,6 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
         <li>The approach you take in your personal life</li>
         <li>How you see yourself (your self-perception)</li>
       </ol>
-      <p>Your results came back as:</p>
-      <ol>
-        <li><strong>${patternI}</strong></li>
-        <li><strong>${patternII}</strong></li>
-        <li><strong>${patternName}</strong></li>
-      </ol>
     </div>`;
 
   // Render pattern cards for all three graphs
@@ -901,10 +893,10 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
     const isSpecial = pData.isSpecial;
     return `
     <div class="results-section">
-      <div class="results-section__title">${subtitle}</div>
+      <div class="results-section__title">${subtitle}.</div>
       <div class="pattern-card ${isSpecial ? 'pattern-card--special' : ''}">
         <div class="pattern-card__header">
-          <div class="pattern-card__name">${name} Pattern</div>
+          <div class="pattern-card__name">${name} Pattern.</div>
         </div>
         ${pData.blurb ? `<div class="pattern-card__blurb">${pData.blurb.split('\n\n').map(p => `<p>${p}</p>`).join('')}</div>` : ''}
         <div class="pattern-card__body">
@@ -954,22 +946,22 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
   const dataI = CLASSICAL_PATTERNS[patternI];
   const dataII = CLASSICAL_PATTERNS[patternII];
 
-  html += '<div class="pdf-page-break"></div>';
+  // Pattern cards — each on its own PDF page
   html += renderPatternCard(patternI, dataI, 'Your Approach at Work');
   html += '<div class="pdf-page-break"></div>';
   html += renderPatternCard(patternII, dataII, 'Your Approach in Personal Life');
   html += '<div class="pdf-page-break"></div>';
   html += renderPatternCard(patternName, pattern, 'Your Self-Perception');
 
-  // Profile Graphs (page 2 in PDF)
+  // All three graphs on a separate page
   html += `
     <div class="pdf-page-break"></div>
     <div class="results-section">
-      <div class="results-section__title">Personal Profile System Graphs</div>
+      <div class="results-section__title">Personal Profile System Graphs.</div>
       <div class="pp-graphs-row">
-        ${renderGraph('Graph I', 'graphI', graphI, segI)}
-        ${renderGraph('Graph II', 'graphII', graphII, segII)}
-        ${renderGraph('Graph III', 'graphIII', graphIII, segIII)}
+        ${renderGraph('Graph I.', 'graphI', graphI, segI)}
+        ${renderGraph('Graph II.', 'graphII', graphII, segII)}
+        ${renderGraph('Graph III.', 'graphIII', graphIII, segIII)}
       </div>
     </div>`;
 
@@ -978,7 +970,7 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
   const tallyDims = ['D', 'i', 'S', 'C', 'N'];
   html += `
     <div class="results-section">
-      <div class="results-section__title">Tally Box</div>
+      <div class="results-section__title">Tally Box.</div>
       <div class="tally-box">
         <div class="tally-box__header">
           <div class="tally-box__col-head">Graph I<br><small>MOST</small></div>
@@ -1024,23 +1016,12 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
   html += `
     <div class="results__actions">
       <button class="btn btn--primary" id="downloadPdfBtn">
-        <svg class="btn__icon btn__icon--left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-        </svg>
         Download PDF
       </button>
       <button class="btn btn--secondary" id="copyResultsBtn">
-        <svg class="btn__icon btn__icon--left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-        </svg>
         Copy to Clipboard
       </button>
-      <button class="btn btn--ghost" onclick="startOver()">
-        <svg class="btn__icon btn__icon--left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/>
-          <path d="M3 3v9h9"/>
-        </svg>
+      <button class="btn btn--secondary" onclick="startOver()" style="border-color:transparent;">
         Start Over
       </button>
     </div>`;

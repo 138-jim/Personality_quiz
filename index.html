@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DISC Personality Profile | Bellette</title>
+  <title>DISC Personality Profile | bellette.</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,9 +17,9 @@
         <div class="navbar__dog">
           <img src="https://irp.cdn-website.com/ce1e293d/dms3rep/multi/bellette_symbol.svg" alt="bellette dog logo">
         </div>
-        <img src="https://irp.cdn-website.com/ce1e293d/dms3rep/multi/bellette_logotype_ALT.svg" alt="bellette" class="navbar__logo-svg" height="24">
+        <img src="https://irp.cdn-website.com/ce1e293d/dms3rep/multi/bellette_logotype_ALT.svg" alt="bellette" class="navbar__logo-svg">
       </a>
-      <div class="navbar__tagline">Personality Assessment</div>
+      <div class="navbar__tagline">Personality Assessment.</div>
     </div>
   </nav>
 
@@ -27,41 +27,32 @@
     <!-- Welcome Screen -->
     <section id="welcome" class="screen active">
       <div class="hero">
-        <h1 class="hero__title">DISC Personality<br>Profile Assessment.</h1>
+        <h1 class="hero__title">DISC Personality Profile Assessment.</h1>
         <p class="hero__subtitle">Unlock insights into your behavioural style and communication preferences in just 5 minutes.</p>
       </div>
 
       <div class="card card--welcome">
         <div class="instructions">
           <div class="instructions__header">
-            <span class="instructions__icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 16v-4M12 8h.01"/>
-              </svg>
-            </span>
-            <span class="instructions__title">How it works</span>
+            <span class="instructions__title">How it works.</span>
           </div>
           <p class="instructions__text">
-            This assessment contains <strong>28 groups</strong> of four descriptive words. For each group, select the word that is <strong class="highlight">MOST</strong> like you and the word that is <strong class="highlight">LEAST</strong> like you.
+            This assessment contains <strong>28 groups</strong> of four descriptive words. For each group, select the word that is <strong>MOST</strong> like you and the word that is <strong>LEAST</strong> like you.
           </p>
-          <p class="instructions__text instructions__text--hint">
+          <div class="instructions__text--hint">
             Ask yourself: <em>"With people, I am most/least..."</em>
-          </p>
-          <p class="instructions__text instructions__text--tip">
+          </div>
+          <p class="instructions__text--tip">
             Work quickly and go with your first instinct. There are no right or wrong answers.
           </p>
         </div>
 
         <div class="name-form">
-          <label class="name-form__label" for="candidateName">Let's get started</label>
+          <label class="name-form__label" for="candidateName">Let's get started.</label>
           <input type="text" id="candidateName" class="name-form__input" placeholder="Enter your full name" autocomplete="name">
           <div id="nameError" class="name-form__error"></div>
           <button id="beginBtn" class="btn btn--primary btn--large">
             Begin Assessment
-            <svg class="btn__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
           </button>
         </div>
       </div>
@@ -84,14 +75,14 @@
       <div class="card card--quiz">
         <div class="question">
           <div class="question__badge" id="questionNumber">Box 1</div>
-          <h2 class="question__title">Select the word MOST like you and the word LEAST like you</h2>
+          <h2 class="question__title">Select the word MOST like you and the word LEAST like you.</h2>
         </div>
 
         <div class="trait-table">
           <div class="trait-table__header">
             <span class="trait-table__header-text">Trait</span>
-            <span class="trait-table__header-badge trait-table__header-badge--most">Most</span>
-            <span class="trait-table__header-badge trait-table__header-badge--least">Least</span>
+            <span class="trait-table__header-badge">Most</span>
+            <span class="trait-table__header-badge">Least</span>
           </div>
           <div id="traitRows"></div>
         </div>
@@ -100,16 +91,10 @@
 
         <div class="quiz-nav">
           <button id="backBtn" class="btn btn--secondary">
-            <svg class="btn__icon btn__icon--left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
             Back
           </button>
           <button id="nextBtn" class="btn btn--primary">
             Next
-            <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
           </button>
         </div>
       </div>
@@ -118,7 +103,7 @@
     <!-- Results Screen -->
     <section id="results" class="screen">
       <div class="results-hero">
-        <div class="results-hero__badge">Your Results</div>
+        <div class="results-hero__badge">Your Results.</div>
         <h1 class="results-hero__name" id="resultsName"></h1>
         <p class="results-hero__subtitle">DISC Personality Profile.</p>
       </div>
@@ -130,7 +115,8 @@
   <footer class="footer">
     <div class="footer__container">
       <img src="https://irp.cdn-website.com/ce1e293d/dms3rep/multi/bellette_logotype_ALT.svg" alt="bellette" class="footer__logo">
-      <p class="footer__text">Alice Springs NT 0870 &nbsp;|&nbsp; Adelaide SA 5000 &nbsp;|&nbsp; bellette.com.au</p>
+      <p class="footer__text">Alice Springs NT 0870 &nbsp;|&nbsp; Adelaide SA 5000 &nbsp;|&nbsp; <span class="bellette-text">bellette</span>.com.au</p>
+      <p class="footer__text" style="margin-top: 20px; opacity: 0.4;">&copy; 2026 <span class="bellette-text">bellette</span>. We'll make you famous.</p>
     </div>
   </footer>
 
