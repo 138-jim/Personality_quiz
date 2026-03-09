@@ -947,11 +947,11 @@ function renderResults({ graphI, graphII, graphIII, segI, segII, segIII, pattern
   const dataII = CLASSICAL_PATTERNS[patternII];
 
   // Pattern cards — each on its own PDF page
-  html += renderPatternCard(patternI, dataI, 'Your Approach at Work');
+  html += renderPatternCard(patternI, dataI, '1. Your Approach at Work');
   html += '<div class="pdf-page-break"></div>';
-  html += renderPatternCard(patternII, dataII, 'Your Approach in Personal Life');
+  html += renderPatternCard(patternII, dataII, '2. Your Approach in Personal Life');
   html += '<div class="pdf-page-break"></div>';
-  html += renderPatternCard(patternName, pattern, 'Your Self-Perception');
+  html += renderPatternCard(patternName, pattern, '3. Your Self-Perception');
 
   // All three graphs on a separate page
   html += `
