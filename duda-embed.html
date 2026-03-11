@@ -183,6 +183,15 @@
   padding: 0;
 }
 
+#disc-quiz-root h1, #disc-quiz-root h2, #disc-quiz-root h3,
+#disc-quiz-root h4, #disc-quiz-root h5, #disc-quiz-root h6 {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  margin: 0 !important;
+  font-family: var(--font-family) !important;
+}
+
 #disc-quiz-root {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
@@ -307,9 +316,9 @@
 }
 
 #disc-quiz-root .hero__title {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-weight: 300;
-  line-height: 1.1;
+  font-size: clamp(1.2rem, 3vw, 1.5rem) !important;
+  font-weight: 300 !important;
+  line-height: 1.1 !important;
   color: var(--bellette-brilliance);
   margin-bottom: var(--space-md);
   letter-spacing: -0.02em;
@@ -566,8 +575,8 @@
   padding: var(--space-xs) var(--space-md);
   background: var(--surface-alt);
   color: var(--text-secondary);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   border-radius: var(--radius-full);
@@ -575,10 +584,10 @@
 }
 
 #disc-quiz-root .question__title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1.4;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: var(--text) !important;
+  line-height: 1.4 !important;
 }
 
 /* === Trait Table === */
@@ -743,15 +752,15 @@
 }
 
 #disc-quiz-root .results-hero__name {
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  font-weight: 300;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem) !important;
+  font-weight: 300 !important;
   color: var(--bellette-brilliance);
   margin-bottom: var(--space-xs);
   letter-spacing: -0.02em;
 }
 
 #disc-quiz-root .results-hero__subtitle {
-  font-size: 0.75rem;
+  font-size: 0.75rem !important;
   color: var(--bellette-brilliance);
   opacity: 0.8;
 }
@@ -773,8 +782,8 @@
 }
 
 #disc-quiz-root .results-section__title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
   color: var(--text);
   margin-bottom: var(--space-lg);
   display: flex;
@@ -1521,7 +1530,7 @@
   }
   
   #disc-quiz-root .hero__title {
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
   }
 
   #disc-quiz-root .card {
@@ -1566,11 +1575,11 @@
 
 @media (max-width: 480px) {
   #disc-quiz-root .hero__title {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
 
   #disc-quiz-root .hero__subtitle {
-    font-size: 0.7rem;
+    font-size: 0.7rem !important;
   }
   
   #disc-quiz-root .trait-table__header {
