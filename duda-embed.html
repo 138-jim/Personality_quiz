@@ -188,12 +188,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: var(--font-family);
-  background: var(--bg);
+  background: var(--white);
   color: var(--text);
   line-height: 1.6;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
 /* === Navigation === */
@@ -259,8 +260,8 @@
 /* === Main Content === */
 #disc-quiz-root .main {
   flex: 1;
-  padding-top: var(--space-sm);
-  padding-bottom: var(--space-4xl);
+  padding-top: 0;
+  padding-bottom: var(--space-xl);
 }
 
 /* === Screens === */
@@ -284,8 +285,8 @@
 /* === Hero Section === */
 #disc-quiz-root .hero {
   text-align: center;
-  margin: calc(var(--space-2xl) * -1) calc(var(--space-xl) * -1) var(--space-3xl);
-  padding: var(--space-3xl) var(--space-xl);
+  margin: 0 0 var(--space-2xl);
+  padding: var(--space-xl);
   background: var(--bellette-bold);
   border-radius: var(--radius-xl);
 }
@@ -720,10 +721,10 @@
 /* === Results Hero === */
 #disc-quiz-root .results-hero {
   text-align: center;
-  margin: calc(var(--space-2xl) * -1) calc(var(--space-xl) * -1) var(--space-3xl);
-  padding: var(--space-lg) var(--space-xl) var(--space-3xl);
+  margin: 0 0 var(--space-2xl);
+  padding: var(--space-lg) var(--space-xl);
   background: var(--bellette-bold);
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  border-radius: var(--radius-xl);
 }
 
 #disc-quiz-root .results-hero__badge {
