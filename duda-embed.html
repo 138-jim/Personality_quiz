@@ -2793,22 +2793,41 @@ function runScoringTest() {
 </script>
 
 <script>
-// Force Duda widget wrapper to resize when content changes (e.g. results screen)
+// Force Duda widget containers to resize when content changes
 (function() {
   var root = document.getElementById('disc-quiz-root');
   if (!root) return;
-  var observer = new MutationObserver(function() {
-    window.dispatchEvent(new Event('resize'));
-    // Only fix the immediate widget wrapper (1-2 levels up), not the whole page
+
+  function fixParentHeights() {
     var el = root.parentElement;
-    for (var i = 0; i < 2 && el && el !== document.body; i++) {
-      el.style.height = 'auto';
-      el.style.maxHeight = 'none';
-      el.style.overflow = 'visible';
+    while (el && el !== document.body && el !== document.documentElement) {
+      var tag = el.tagName.toLowerCase();
+      // Stop before page-level layout elements
+      if (tag === 'footer' || tag === 'header' || tag === 'nav') break;
+      // Stop if we hit the main Duda page body container
+      if (el.classList.contains('dmBody') || el.classList.contains('dmFooter') ||
+          el.classList.contains('dmHeader') || el.id === 'site-content') break;
+      var cs = window.getComputedStyle(el);
+      // Only fix elements that have constrained height or hidden overflow
+      if (cs.overflow === 'hidden' || cs.overflowY === 'hidden' ||
+          (cs.height !== 'auto' && cs.height !== '0px')) {
+        el.style.setProperty('height', 'auto', 'important');
+        el.style.setProperty('max-height', 'none', 'important');
+        el.style.setProperty('overflow', 'visible', 'important');
+      }
       el = el.parentElement;
     }
+  }
+
+  // Fix on any DOM change inside the quiz
+  var observer = new MutationObserver(function() {
+    fixParentHeights();
+    window.dispatchEvent(new Event('resize'));
   });
-  observer.observe(root, { childList: true, subtree: true, attributes: true });
+  observer.observe(root, { childList: true, subtree: true });
+
+  // Also fix on initial load
+  fixParentHeights();
 })();
 </script>
 
