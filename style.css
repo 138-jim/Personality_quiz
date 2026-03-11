@@ -1287,83 +1287,101 @@ body {
   display: block;
 }
 
-.pdf-render .results-explainer {
-  font-size: 0.85rem;
-  line-height: 1.5;
+.pdf-render .results-hero {
+  padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
 }
 
+.pdf-render .results-hero__badge {
+  margin-bottom: 0.25rem;
+  font-size: 0.6rem;
+}
+
+.pdf-render .results-hero__name {
+  font-size: 1.1rem;
+}
+
+.pdf-render .results-hero__subtitle {
+  font-size: 0.7rem;
+}
+
+.pdf-render .results-explainer {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin-bottom: 0.3rem;
+}
+
 .pdf-render .results-explainer p {
-  margin: 0 0 0.3rem 0;
+  margin: 0 0 0.2rem 0;
 }
 
 .pdf-render .results-explainer ol {
-  margin: 0 0 0.4rem 1.2rem;
+  margin: 0 0 0.2rem 1.2rem;
 }
 
 .pdf-render .results-explainer li {
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.1rem;
 }
 
 .pdf-render .pattern-card {
   border-radius: 10px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .pdf-render .pattern-card__header {
-  padding: 1rem 1.5rem;
+  padding: 0.6rem 1rem;
 }
 
 .pdf-render .pattern-card__name {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
 }
 
 .pdf-render .pattern-card__code {
-  font-size: 0.7rem;
-  margin-top: 3px;
+  font-size: 0.6rem;
+  margin-top: 2px;
 }
 
 .pdf-render .pattern-card__blurb {
-  padding: 0.8rem 1.5rem;
-  font-size: 0.9rem;
-  line-height: 1.6;
+  padding: 0.5rem 1rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
 }
 
 .pdf-render .pattern-card__blurb p {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.3rem 0;
 }
 
 .pdf-render .pattern-card__body {
-  padding: 0.8rem 1.5rem;
+  padding: 0.5rem 1rem;
 }
 
 .pdf-render .pattern-card__grid {
-  gap: 0.6rem;
+  gap: 0.4rem;
 }
 
 .pdf-render .pattern-card__item {
-  padding: 0.5rem 0.75rem;
+  padding: 0.3rem 0.6rem;
   border-left-width: 3px;
   border-radius: 5px;
 }
 
 .pdf-render .pattern-card__label {
-  font-size: 0.65rem;
-  margin-bottom: 2px;
+  font-size: 0.55rem;
+  margin-bottom: 1px;
 }
 
 .pdf-render .pattern-card__value {
-  font-size: 0.85rem;
-  line-height: 1.45;
+  font-size: 0.7rem;
+  line-height: 1.35;
 }
 
 .pdf-render .results-section__title {
-  font-size: 1.15rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
 }
 
 .pdf-render .results-section {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /* === Print Styles === */
