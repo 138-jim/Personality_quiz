@@ -2793,16 +2793,15 @@ function runScoringTest() {
 </script>
 
 <script>
-// Force Duda widget to resize when content changes (e.g. results screen)
+// Force Duda widget wrapper to resize when content changes (e.g. results screen)
 (function() {
   var root = document.getElementById('disc-quiz-root');
   if (!root) return;
   var observer = new MutationObserver(function() {
-    // Force parent containers to recalculate height
     window.dispatchEvent(new Event('resize'));
-    // Also try to bust any fixed-height Duda wrappers
+    // Only fix the immediate widget wrapper (1-2 levels up), not the whole page
     var el = root.parentElement;
-    while (el && el !== document.body) {
+    for (var i = 0; i < 2 && el && el !== document.body; i++) {
       el.style.height = 'auto';
       el.style.maxHeight = 'none';
       el.style.overflow = 'visible';
